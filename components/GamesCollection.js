@@ -34,7 +34,7 @@ class GamesCollection  extends Component {
 
 componentDidMount = async () => {
   try {
-    let response = await fetch('http://192.168.0.12:8080//games',{
+    let response = await fetch('http://172.24.25.138:8080/sspickup/games',{
       headers:{
         Accept:'application/json',
         'Content-Type':'application/json',
