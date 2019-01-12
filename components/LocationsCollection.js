@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import Game from './Game';
 import MapView, { Marker } from 'react-native-maps';
 
 
-import { AppRegistry, View, Text, ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, ActivityIndicator, StyleSheet} from 'react-native'
 
-import axios from 'axios';
 
-class GamesCollection  extends Component {
+class LocationsCollection  extends Component {
 
   constructor(props){
     super(props);
@@ -15,69 +13,32 @@ class GamesCollection  extends Component {
     this.state = {
       loading: true,
       error: false,
-      games: [],
+      locations: [],
     }
   }
 
-
-  //   componentDidMount = async () => {
-  //     const myHeaders = new Headers({
-  //     'Content-Type': 'application/json'});
-  //   try {
-  //     let response = await fetch('http://192.168.0.12:19000//games',
-  //     myHeaders)
-  //     let games = await response.json()
-  //     this.setState({loading: false, games})
-  //   } catch (e) {
-  //     console.log(e);
-  //     this.setState({loading: false, error: true})
-  //   }
-  // }
-//j
 
   componentDidMount = async () => {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://192.168.4.226:8080/sspickup/games',{
+      let response = await fetch('http://192.168.4.226:8080/sspickup/locations',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
         }
       })
-      let games = await response.json()
-      this.setState({loading: false, games})
+      let locations = await response.json()
+      this.setState({loading: false, locations})
     } catch (e) {
       console.log(e);
       this.setState({loading: false, error: true})
     }
   }
 
-  renderGame = ({id, title, location}, i) => {
-    return (
-      <View
-      key={id}
-      style={styles.post}>
-      <View style={styles.postNumber}>
-      <Text>
-      {i + 1}
-      </Text>
-      </View>
-      <View style={styles.postContent}>
-      <Text>
-      {title}
-      </Text>
-      <Text style={styles.postBody}>
-      {location.latitude + ", " + location.longitude}
-      </Text>
-      </View>
-      </View>
-    )
-  }
-
 
   render() {
-    const {games, loading, error} = this.state
+    const {locations, loading, error} = this.state
 
     if (loading) {
       return (
@@ -107,12 +68,11 @@ class GamesCollection  extends Component {
         longitudeDelta: 0.0421
       }}
       >
-      {this.state.games.map(game => (
+      {this.state.locations.map(location => (
         <Marker
-          key={game.game_id}
-          coordinate={game.location}
-          title={game.title}
-          description={game.description}
+          key={location.id}
+          coordinate={location}
+          title={location.location_title}
         />
       ))}
 
@@ -158,7 +118,41 @@ const styles = StyleSheet.create({
   },
 })
 
+// async function getGamesFromApi() {
+//   try {
+//     let response = await fetch (
+//       'https://baconipsum.com/api/?type=meat-and-filler',
+//     );
+//     let responseJson = await response.json();
+//     console.log(responseJson);
+//     return responseJson.games;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+//
+// getGamesFromApi()
 
+//    const {games, loading, error} = this.state
+//
+//    if (loading) {
+//      return (
+//        <Text>
+//          Loading...
+//        </Text>
+//      )
+//    }
+//
+//    if (error) {
+//      return (
+//          <Text>
+//
+//            Failed to load games!
+//          </Text>
+//      )
+//    }
+//
+//    return (
 //      <ScrollView>
 //          {this.state.games === [] && <Text>Loading games...</Text>}
 //          {
@@ -168,6 +162,8 @@ const styles = StyleSheet.create({
 //            </View>
 //          }
 //      </ScrollView>
+//    )
+//  }
+// }
 
-
-export default GamesCollection ;
+export default LocationsCollection ;

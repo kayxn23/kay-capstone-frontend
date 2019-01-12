@@ -1,5 +1,9 @@
 import React from 'react';
 import GamesCollection from '../components/GamesCollection';
+import LocationsCollection from '../components/LocationsCollection';
+
+import { MapView } from 'expo';
+
 import {
   Image,
   Platform,
@@ -22,7 +26,8 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <GamesCollection/>
+
+        < LocationsCollection />
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
