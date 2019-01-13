@@ -5,7 +5,6 @@ import MapView, { Marker } from 'react-native-maps';
 
 import { AppRegistry, View, Text, ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
 
-import axios from 'axios';
 
 class GamesCollection  extends Component {
 
@@ -19,27 +18,11 @@ class GamesCollection  extends Component {
     }
   }
 
-
-  //   componentDidMount = async () => {
-  //     const myHeaders = new Headers({
-  //     'Content-Type': 'application/json'});
-  //   try {
-  //     let response = await fetch('http://192.168.0.12:19000//games',
-  //     myHeaders)
-  //     let games = await response.json()
-  //     this.setState({loading: false, games})
-  //   } catch (e) {
-  //     console.log(e);
-  //     this.setState({loading: false, error: true})
-  //   }
-  // }
-//j
-
   componentDidMount = async () => {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://192.168.4.226:8080/sspickup/games',{
+      let response = await fetch('http://192.168.1.34:8080/sspickup/games',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
