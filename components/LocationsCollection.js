@@ -38,7 +38,7 @@ class LocationsCollection  extends Component {
 
 
   render() {
-    const {locations, loading, error} = this.state
+    const {loading, error} = this.state
 
     if (loading) {
       return (

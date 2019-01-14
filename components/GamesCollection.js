@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Game from './Game';
 import MapView, { Marker } from 'react-native-maps';
 
 
-import { AppRegistry, View, Text, ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'
 
 
 class GamesCollection  extends Component {
@@ -60,7 +59,7 @@ class GamesCollection  extends Component {
 
 
   render() {
-    const {games, loading, error} = this.state
+    const {loading, error} = this.state
 
     if (loading) {
       return (
