@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-// import Modal from "react-native-modal";
 
-
-import { ScrollView, Modal, TouchableHighlight, TouchableOpacity,Button, View, Text, ActivityIndicator, StyleSheet } from 'react-native'
+import { 
+  Modal,
+  TouchableHighlight,
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet } from 'react-native'
 
 
 class GamesCollection  extends Component {
@@ -19,9 +23,6 @@ class GamesCollection  extends Component {
     }
   }
 
-  // _toggleModal = () =>
-  // this.setState({ displayModal: !this.state.displayModal });
-
   triggerModal() {
     this.setState({displayModal: true});
   }
@@ -29,6 +30,13 @@ class GamesCollection  extends Component {
   closeModal = () => {
     this.setState({displayModal:false});
   }
+
+//   makeGames = () => {
+//   return this.state.cards.map( (card) => {
+//     console.log("printing card id from borad",card.id);
+//     return <Game key={card.id} id={card.id} text={card.text} emoji={card.emoji} removeCardCallback={this.removeCard}/>
+//   });
+// }
 
   componentDidMount = async () => {
     try {
@@ -112,16 +120,19 @@ class GamesCollection  extends Component {
         />
       ))}
 
-        <View>
+        <View >
           <Modal
-              transparent={false}
+              transparent={true}
+              animationType="slide"
               visible={this.state.displayModal}
           >
+          <View style={styles.modalStyle}>
             <View>
               <Text>I am the modal content!</Text>
               <TouchableHighlight onPress={this.closeModal}>
-              <Text>Hide me!</Text>
+              <Text> CLOSE MODAL </Text>
               </TouchableHighlight>
+            </View>
             </View>
           </Modal>
         </View>
@@ -132,6 +143,17 @@ class GamesCollection  extends Component {
 }
 
 const styles = StyleSheet.create({
+  modalStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'pink',
+    margin: 0,
+    borderRadius: 4,
+    height: 100,
+    padding: 22
+  },
   container: {
     flex: 1,
   },

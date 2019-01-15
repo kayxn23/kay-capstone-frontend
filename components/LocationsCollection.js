@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 
 
-import { View, Text, ActivityIndicator, StyleSheet} from 'react-native'
+import { View,
+  Text,
+  ActivityIndicator,
+  TouchableHighlight,
+  Modal,
+  StyleSheet} from 'react-native'
 
 
 class LocationsCollection  extends Component {
@@ -14,7 +19,16 @@ class LocationsCollection  extends Component {
       loading: true,
       error: false,
       locations: [],
+      displayModal: false
     }
+  }
+
+  triggerModal() {
+    this.setState({displayModal: true});
+  }
+
+  closeModal = () => {
+    this.setState({displayModal:false});
   }
 
 
@@ -73,8 +87,33 @@ class LocationsCollection  extends Component {
           key={location.id}
           coordinate={location}
           title={location.location_title}
+          onPress={ () => this.triggerModal()}
         />
       ))}
+
+      <View >
+        <Modal
+            transparent={true}
+            animationType="slide"
+            visible={this.state.displayModal}
+        >
+        <View style={styles.modalStyle}>
+          <View>
+            <View>
+              <TouchableHighlight onPress={this.closeModal}>
+              <Text style={styles.createGameStyle}>CREATE GAME!</Text>
+              </TouchableHighlight>
+            </View>
+
+            <View>
+            <TouchableHighlight onPress={this.closeModal}>
+            <Text style={styles.closeGameStyle}> CLOSE MODAL </Text>
+            </TouchableHighlight>
+            </View>
+          </View>
+          </View>
+        </Modal>
+      </View>
 
       </MapView>
 
@@ -84,6 +123,24 @@ class LocationsCollection  extends Component {
 }
 
 const styles = StyleSheet.create({
+  createGameStyle: {
+    backgroundColor: 'lightgreen'
+  },
+  closeGameStyle: {
+    backgroundColor: 'pink'
+  },
+  modalStyle: {
+    marginTop: 100,
+    marginBottom: 50,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 0,
+    borderRadius: 4,
+    height: 100,
+    padding: 22
+  },
   container: {
     flex: 1,
   },
