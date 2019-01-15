@@ -19,16 +19,25 @@ class LocationsCollection  extends Component {
       loading: true,
       error: false,
       locations: [],
-      displayModal: false
+      displayModal: false,
+      displayModalCreateGame: false
     }
   }
 
-  triggerModal() {
+  triggerModal = () => {
     this.setState({displayModal: true});
   }
 
   closeModal = () => {
     this.setState({displayModal:false});
+  }
+
+  triggerCreateGameFormModal = () => {
+    this.setState({displayModalCreateGame: true});
+  }
+
+  closeCreateGameFormModal = () => {
+    this.setState({displayModalCreateGame:false});
   }
 
 
@@ -99,14 +108,36 @@ class LocationsCollection  extends Component {
         >
         <View style={styles.modalStyle}>
           <View>
-            <View>
-              <TouchableHighlight onPress={this.closeModal}>
+            <View style={{paddingBottom: 40}}>
+              <TouchableHighlight onPress={this.triggerCreateGameFormModal}>
               <Text style={styles.createGameStyle}>CREATE GAME!</Text>
               </TouchableHighlight>
             </View>
 
+
             <View>
             <TouchableHighlight onPress={this.closeModal}>
+            <Text style={styles.closeGameStyle}> CLOSE MODAL </Text>
+            </TouchableHighlight>
+            </View>
+          </View>
+          </View>
+        </Modal>
+      </View>
+
+{/*create another modal that is triggers on "create modal" */}
+      <View >
+        <Modal
+            transparent={false}
+            animationType="slide"
+            visible={this.state.displayModalCreateGame}
+        >
+        <View style={styles.modalStyle}>
+          <View>
+
+
+            <View>
+            <TouchableHighlight onPress={this.closeCreateGameFormModal}>
             <Text style={styles.closeGameStyle}> CLOSE MODAL </Text>
             </TouchableHighlight>
             </View>
@@ -130,7 +161,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'pink'
   },
   modalStyle: {
-    marginTop: 100,
     marginBottom: 50,
     flex: 1,
     flexDirection: 'column',
