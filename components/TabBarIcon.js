@@ -18,5 +18,5 @@ export default class TabBarIcon extends React.Component {
 
 TabBarIcon.propTypes = {
   name: PropTypes.string,
-  focused: PropTypes.string
+  focused: PropTypes.bool
 };

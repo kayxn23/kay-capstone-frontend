@@ -3,7 +3,7 @@ import MapView, { Marker } from 'react-native-maps';
 import Modal from "react-native-modal";
 
 
-import { Button, View, Text, ActivityIndicator, StyleSheet } from 'react-native'
+import { TouchableOpacity,Button, View, Text, ActivityIndicator, StyleSheet } from 'react-native'
 
 
 class GamesCollection  extends Component {
@@ -19,8 +19,6 @@ class GamesCollection  extends Component {
     }
   }
 
-  // _toggleModal = () =>
-  // this.setState({ displayModal: !this.state.displayModal });
 
   triggerModal() {
     this.setState({displayModal: true});
@@ -34,7 +32,7 @@ class GamesCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://172.24.25.138:8080/sspickup/games',{
+      let response = await fetch('http://192.168.0.12:8080/sspickup/games',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
@@ -114,18 +112,17 @@ class GamesCollection  extends Component {
       {this.state.displayModal &&
         <View>
           <Modal
-              visible={this.state.displayModal}
-              onRequestClose={() => this.state.closeModal()}
+              isVisible={this.state.displayModal}
+              onRequestClose={() => this.closeModal()}
           >
             <View style={{ flex: 1 }}>
               <Text>I am the modal content!</Text>
-              <Button
-                    onPress={() => this.state.closeModal()}
-                    title="Close modal"
-                >
-                </Button>
+              <TouchableOpacity onPress={() => this.closeModal()}>
+              <Text>Hide me!</Text>
+              </TouchableOpacity>
             </View>
           </Modal>
+          <Button onPress={() => this.closeModal()} title={"CLOS"}></Button>
         </View>}
 
       </MapView>
