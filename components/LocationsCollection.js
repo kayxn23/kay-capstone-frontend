@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
+import NewGameForm from './NewGameForm';
 
 
 import { View,
@@ -34,7 +35,6 @@ class LocationsCollection  extends Component {
 
   triggerCreateGameFormModal = () => {
     this.setState({displayModal: false, displayModalCreateGame: true});
-    console.log("this should be true", this.state.displayModalCreateGame);
   }
 
   closeCreateGameFormModal = () => {
@@ -136,9 +136,14 @@ class LocationsCollection  extends Component {
         <View style={styles.modalStyle}>
           <View>
             <View>
+
+            <NewGameForm/>
+
             <TouchableHighlight onPress={this.closeCreateGameFormModal}>
             <Text style={styles.closeGameStyle}> CLOSE MODAL </Text>
             </TouchableHighlight>
+
+
             </View>
           </View>
           </View>
