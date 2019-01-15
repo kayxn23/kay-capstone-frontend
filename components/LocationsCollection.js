@@ -22,7 +22,7 @@ class LocationsCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://192.168.0.12:8080/sspickup/locations',{
+      let response = await fetch('http://172.24.25.138:8080/sspickup/locations',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',

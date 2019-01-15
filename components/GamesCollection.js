@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import Modal from "react-native-modal";
+// import Modal from "react-native-modal";
 
 
-import { TouchableOpacity,Button, View, Text, ActivityIndicator, StyleSheet } from 'react-native'
+import { ScrollView, Modal, TouchableHighlight, TouchableOpacity,Button, View, Text, ActivityIndicator, StyleSheet } from 'react-native'
 
 
 class GamesCollection  extends Component {
@@ -19,12 +19,14 @@ class GamesCollection  extends Component {
     }
   }
 
+  // _toggleModal = () =>
+  // this.setState({ displayModal: !this.state.displayModal });
 
   triggerModal() {
     this.setState({displayModal: true});
   }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({displayModal:false});
   }
 
@@ -32,7 +34,7 @@ class GamesCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://192.168.0.12:8080/sspickup/games',{
+      let response = await fetch('http://172.24.25.138:8080/sspickup/games',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
@@ -109,21 +111,20 @@ class GamesCollection  extends Component {
           onPress = { () => this.triggerModal() }
         />
       ))}
-      {this.state.displayModal &&
+
         <View>
           <Modal
-              isVisible={this.state.displayModal}
-              onRequestClose={() => this.closeModal()}
+              transparent={false}
+              visible={this.state.displayModal}
           >
-            <View style={{ flex: 1 }}>
+            <View>
               <Text>I am the modal content!</Text>
-              <TouchableOpacity onPress={() => this.closeModal()}>
+              <TouchableHighlight onPress={this.closeModal}>
               <Text>Hide me!</Text>
-              </TouchableOpacity>
+              </TouchableHighlight>
             </View>
           </Modal>
-          <Button onPress={() => this.closeModal()} title={"CLOS"}></Button>
-        </View>}
+        </View>
 
       </MapView>
     )

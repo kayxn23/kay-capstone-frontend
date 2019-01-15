@@ -5,7 +5,7 @@ class ModalExample extends Component {
   state = {
     modalVisible: false,
   };
-
+     
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
