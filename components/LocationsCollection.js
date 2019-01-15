@@ -33,7 +33,8 @@ class LocationsCollection  extends Component {
   }
 
   triggerCreateGameFormModal = () => {
-    this.setState({displayModalCreateGame: true});
+    this.setState({displayModal: false, displayModalCreateGame: true});
+    console.log("this should be true", this.state.displayModalCreateGame);
   }
 
   closeCreateGameFormModal = () => {
@@ -134,8 +135,6 @@ class LocationsCollection  extends Component {
         >
         <View style={styles.modalStyle}>
           <View>
-
-
             <View>
             <TouchableHighlight onPress={this.closeCreateGameFormModal}>
             <Text style={styles.closeGameStyle}> CLOSE MODAL </Text>
