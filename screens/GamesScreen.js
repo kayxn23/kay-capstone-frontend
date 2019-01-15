@@ -2,10 +2,13 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import GamesCollection from '../components/GamesCollection';
 
+
+
 export default class GamesScreen extends React.Component {
   static navigationOptions = {
     title: null,
   };
+
 
   render() {
     return (

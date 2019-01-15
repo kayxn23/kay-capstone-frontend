@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
+import Modal from "react-native-modal";
 
 
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'
+import { Button, View, Text, ActivityIndicator, StyleSheet } from 'react-native'
 
 
 class GamesCollection  extends Component {
@@ -14,7 +15,19 @@ class GamesCollection  extends Component {
       loading: true,
       error: false,
       games: [],
+      displayModal: false
     }
+  }
+
+  // _toggleModal = () =>
+  // this.setState({ displayModal: !this.state.displayModal });
+
+  triggerModal() {
+    this.setState({displayModal: true});
+  }
+
+  closeModal() {
+    this.setState({displayModal:false});
   }
 
   componentDidMount = async () => {
@@ -95,12 +108,27 @@ class GamesCollection  extends Component {
           coordinate={game.location}
           title={game.title}
           description={game.description}
+          onPress = { () => this.triggerModal() }
         />
       ))}
+      {this.state.displayModal &&
+        <View>
+          <Modal
+              visible={this.state.displayModal}
+              onRequestClose={() => this.state.closeModal()}
+          >
+            <View style={{ flex: 1 }}>
+              <Text>I am the modal content!</Text>
+              <Button
+                    onPress={() => this.state.closeModal()}
+                    title="Close modal"
+                >
+                </Button>
+            </View>
+          </Modal>
+        </View>}
 
       </MapView>
-
-
     )
   }
 }
