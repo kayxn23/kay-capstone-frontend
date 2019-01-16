@@ -44,6 +44,7 @@ import { Text,
 
 
     onFormChange = (event) => {
+      console.log(event.target.name);
     const field = event.target.name;
     const value = event.target.value;
 
@@ -70,13 +71,13 @@ import { Text,
         <View >
           <TextInput
             placeholder="Title"
-            onChange={this.onFormChange}
+            onChangeText={(title) => this.setState({title})}
             value={this.state.title}
             style={{ height: 100, width: 300 }}
           />
           <TextInput
             placeholder="Description"
-            onChange={this.onFormChange}
+            onChangeText={(description) => this.setState({description})}
             value={this.state.description}
             style={{ height: 100, width: 300 }}
           />
@@ -86,7 +87,7 @@ import { Text,
               style={{ height: 150, width: 300 }}
             />
 
-          <TouchableHighlight style={styles.buttonstyle} onPress={this.handleSubmit}>
+          <TouchableHighlight style={styles.buttonstyle} onPress={this.handleCreateForm}>
           <Text style={styles.buttontextstyle}> CREATE GAME </Text>
           </TouchableHighlight>
 
