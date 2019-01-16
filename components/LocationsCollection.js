@@ -144,7 +144,7 @@ class LocationsCollection  extends Component {
               organizer={this.state.organizer}/>
 
             <TouchableHighlight onPress={this.closeCreateGameFormModal}>
-            <Text style={styles.closeGameStyle}> CLOSE MODAL </Text>
+            <Text style={styles.closeFormModal}> CLOSE MODAL </Text>
             </TouchableHighlight>
 
 
@@ -162,6 +162,10 @@ class LocationsCollection  extends Component {
 }
 
 const styles = StyleSheet.create({
+  closeFormModal: {
+    marginTop: 120,
+    backgroundColor: 'pink'
+  },
   createGameStyle: {
     backgroundColor: 'lightgreen'
   },
