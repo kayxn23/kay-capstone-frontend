@@ -68,16 +68,14 @@ import { Text,
     return (
       <View onSubmit={this.onSubmit}  >
         <View >
-          <Text>Title</Text>
           <TextInput
-            placeholder="title"
+            placeholder="Title"
             onChange={this.onFormChange}
             value={this.state.title}
             style={{ height: 100, width: 300 }}
           />
-          <Text>Description</Text>
           <TextInput
-            placeholder="description"
+            placeholder="Description"
             onChange={this.onFormChange}
             value={this.state.description}
             style={{ height: 100, width: 300 }}
@@ -85,7 +83,7 @@ import { Text,
           <DatePickerIOS
               date={this.state.gameDate}
               onDateChange={this.setDate}
-              style={{ height: 100, width: 300 }}
+              style={{ height: 150, width: 300 }}
             />
 
           <TouchableHighlight style={styles.buttonstyle} onPress={this.handleSubmit}>
@@ -110,7 +108,7 @@ import { Text,
     buttonstyle: {
     marginRight: 40,
     marginLeft: 40,
-    marginTop: 10,
+    marginTop: 100,
     paddingTop: 20,
     paddingBottom: 20,
     backgroundColor: '#68a0cf',

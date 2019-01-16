@@ -143,8 +143,8 @@ class LocationsCollection  extends Component {
               location={this.state.selectedLocation}
               organizer={this.state.organizer}/>
 
-            <TouchableHighlight onPress={this.closeCreateGameFormModal}>
-            <Text style={styles.closeFormModal}> CLOSE MODAL </Text>
+            <TouchableHighlight style={styles.buttonstyle} onPress={this.closeCreateGameFormModal}>
+            <Text style={styles.buttontextstyle}> CANCEL </Text>
             </TouchableHighlight>
 
 
@@ -214,6 +214,21 @@ const styles = StyleSheet.create({
   text: {
     padding: 15,
     backgroundColor: 'skyblue',
+  },
+  buttonstyle: {
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    paddingTop: 20,
+    paddingBottom: 20,
+    backgroundColor: '#68a0cf',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+  buttontextstyle: {
+    color: '#fff',
+    textAlign: 'center',
   },
 })
 
