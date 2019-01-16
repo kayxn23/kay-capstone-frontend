@@ -139,8 +139,9 @@ class LocationsCollection  extends Component {
           <View>
             <View>
 
-            <NewGameForm location={this.state.selectedLocation}
-                          organizer={this.state.organizer}/>
+            <NewGameForm
+              location={this.state.selectedLocation}
+              organizer={this.state.organizer}/>
 
             <TouchableHighlight onPress={this.closeCreateGameFormModal}>
             <Text style={styles.closeGameStyle}> CLOSE MODAL </Text>
