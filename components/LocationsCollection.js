@@ -120,7 +120,7 @@ class LocationsCollection  extends Component {
 
             <View>
             <TouchableHighlight onPress={this.closeModal}>
-            <Text style={styles.closeGameStyle}> CLOSE MODAL </Text>
+            <Text style={styles.closeGameStyle}> CANCEL </Text>
             </TouchableHighlight>
             </View>
           </View>
@@ -162,15 +162,27 @@ class LocationsCollection  extends Component {
 }
 
 const styles = StyleSheet.create({
-  closeFormModal: {
-    marginTop: 120,
-    backgroundColor: 'pink'
-  },
   createGameStyle: {
-    backgroundColor: 'lightgreen'
+    backgroundColor: 'lightgreen',
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    paddingTop: 20,
+    paddingBottom: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff'
   },
   closeGameStyle: {
-    backgroundColor: 'pink'
+    backgroundColor: 'pink',
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    paddingTop: 20,
+    paddingBottom: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff'
   },
   modalStyle: {
     marginBottom: 50,

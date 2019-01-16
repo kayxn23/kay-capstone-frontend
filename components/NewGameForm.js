@@ -2,11 +2,11 @@ import { Formik } from 'formik';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text,
-  Button,
   TextInput,
   TouchableHighlight,
   View,
-  StyleSheet, DatePickerIOS, Label, Select } from 'react-native';
+  StyleSheet,
+  DatePickerIOS } from 'react-native';
 
 
   class NewGameForm extends Component {
@@ -38,31 +38,6 @@ import { Text,
           gameDate: ''
       });
     }
-
-
-
-
-
-    onFormChange = (event) => {
-      console.log(event.target.name);
-    const field = event.target.name;
-    const value = event.target.value;
-
-    const updatedState = {};
-    updatedState[field] = value;
-    this.setState(updatedState);
-  }
-
-    onSubmit = (event) => {
-    event.preventDefault();
-
-    if (this.state.text === '') return;
-
-    console.log(event);
-    this.props.addGameCallback(this.state);
-    this.resetState();
-  }
-
 
 
     render() {
