@@ -21,12 +21,14 @@ class LocationsCollection  extends Component {
       error: false,
       locations: [],
       displayModal: false,
-      displayModalCreateGame: false
+      displayModalCreateGame: false,
+      selectedLocation: null,
+      organizer: {"player_id": 2}
     }
   }
 
-  triggerModal = () => {
-    this.setState({displayModal: true});
+  triggerModal = (location) => {
+    this.setState({displayModal: true, selectedLocation: location});
   }
 
   closeModal = () => {
@@ -46,7 +48,7 @@ class LocationsCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://172.24.25.138:8080/sspickup/locations',{
+      let response = await fetch('http://192.168.0.12:8080/sspickup/locations',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
@@ -97,7 +99,7 @@ class LocationsCollection  extends Component {
           key={location.id}
           coordinate={location}
           title={location.location_title}
-          onPress={ () => this.triggerModal()}
+          onPress={ () => this.triggerModal(location)}
         />
       ))}
 
@@ -137,7 +139,8 @@ class LocationsCollection  extends Component {
           <View>
             <View>
 
-            <NewGameForm/>
+            <NewGameForm location={this.state.selectedLocation}
+                          organizer={this.state.organizer}/>
 
             <TouchableHighlight onPress={this.closeCreateGameFormModal}>
             <Text style={styles.closeGameStyle}> CLOSE MODAL </Text>
