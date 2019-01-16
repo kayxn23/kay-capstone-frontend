@@ -5,7 +5,13 @@ import { Text,
   TouchableHighlight,
   View,
   StyleSheet,
-  DatePickerIOS } from 'react-native';
+  DatePickerIOS
+  } from 'react-native';
+import moment from 'moment';
+
+// import DatePickerIOS from 'react-native-universal-datepicker-ios';
+//               dateFormat={"yyyy-MM-dd HH:mm:ss Z"}
+
 
 
   class NewGameForm extends Component {
@@ -23,8 +29,12 @@ import { Text,
       this.setDate = this.setDate.bind(this);
     }
 
+//2019-01-16T09:05:41.679Z
+//2019-01-19 10:23:54 -0800
     setDate(newDate) {
-      this.setState({game_date: newDate})
+      let newDate1 = moment(newDate).format('yyyy');
+      console.log(newDate1);
+      this.setState({game_date: newDate1})
     }
 
     onSubmit = (event) => {
@@ -69,6 +79,8 @@ import { Text,
               date={this.state.game_date}
               onDateChange={this.setDate}
               style={{ height: 150, width: 300 }}
+              dateFormat={"yyyy-MM-dd HH:mm:ss Z"}
+              timeZoneOffsetInMinutes={"-7 * 60"}
             />
 
           <TouchableHighlight style={styles.buttonstyle} onPress={this.onSubmit}>
