@@ -1,4 +1,3 @@
-import { Formik } from 'formik';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text,
@@ -16,16 +15,26 @@ import { Text,
       this.state = {
         title: '',
         description: '',
-        location: props.location,
-        organizer: props.organizer,
-        gameDate: new Date()
+        location: this.props.location,
+        organizer: this.props.organizer,
+        game_date: new Date()
       };
 
       this.setDate = this.setDate.bind(this);
     }
 
     setDate(newDate) {
-      this.setState({gameDate: newDate})
+      this.setState({game_date: newDate})
+    }
+
+    onSubmit = (event) => {
+      event.preventDefault();
+
+      if (this.state.title === '' || this.state.description === '') return;
+
+      console.log(event);
+      this.props.addGameCallback(this.state);
+      this.resetState();
     }
 
 
@@ -35,7 +44,7 @@ import { Text,
           description: '',
           location: '',
           organizer: '',
-          gameDate: ''
+          game_date: ''
       });
     }
 
@@ -57,12 +66,12 @@ import { Text,
             style={{ height: 100, width: 300 }}
           />
           <DatePickerIOS
-              date={this.state.gameDate}
+              date={this.state.game_date}
               onDateChange={this.setDate}
               style={{ height: 150, width: 300 }}
             />
 
-          <TouchableHighlight style={styles.buttonstyle} onPress={this.handleCreateForm}>
+          <TouchableHighlight style={styles.buttonstyle} onPress={this.onSubmit}>
           <Text style={styles.buttontextstyle}> CREATE GAME </Text>
           </TouchableHighlight>
 
@@ -75,7 +84,8 @@ import { Text,
 
   NewGameForm.propTypes = {
     location: PropTypes.object.isRequired,
-    organizer: PropTypes.object.isRequired
+    organizer: PropTypes.object.isRequired,
+    addGameCallback: PropTypes.func.isRequired
   };
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import NewGameForm from './NewGameForm';
+import axios from 'axios';
 
 
 import { View,
@@ -22,13 +23,14 @@ class LocationsCollection  extends Component {
       locations: [],
       displayModal: false,
       displayModalCreateGame: false,
-      selectedLocation: null,
-      organizer: {"player_id": 2}
+      selectedLocation: '',
+      organizer: {"player_id": 8}
     }
   }
 
   triggerModal = (location) => {
-    this.setState({displayModal: true, selectedLocation: location});
+    console.log("trigerModal functioncalled" , this.state.selectedLocation);
+    this.setState({displayModal: true, selectedLocation: {"id": location.id}});
   }
 
   closeModal = () => {
@@ -42,6 +44,25 @@ class LocationsCollection  extends Component {
   closeCreateGameFormModal = () => {
     this.setState({displayModalCreateGame:false});
   }
+
+  addGame = (newGame) => {
+    console.log("what is new game",newGame);
+    axios.post('http://192.168.0.12:8080/sspickup/games', newGame)
+    .then( (response) => {
+      console.log('API response success!', response);
+      const {games} = this.state;
+      games.push(newGame);
+      this.setState({
+        games
+      })
+    })
+    .catch(error => {
+      console.log(error.message);
+      this.setState({
+        error: error.message
+      });
+    });
+  };
 
 
   componentDidMount = async () => {
@@ -141,8 +162,10 @@ class LocationsCollection  extends Component {
 
             <NewGameForm
               location={this.state.selectedLocation}
-              organizer={this.state.organizer}/>
-
+              organizer={this.state.organizer}
+              addGameCallback={this.addGame}
+            />
+            
             <TouchableHighlight style={styles.buttonstyle} onPress={this.closeCreateGameFormModal}>
             <Text style={styles.buttontextstyle}> CANCEL </Text>
             </TouchableHighlight>
