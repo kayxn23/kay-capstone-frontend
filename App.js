@@ -8,20 +8,6 @@ export default class App extends React.Component {
     isLoadingComplete: false,
   };
 
-
-
-//   function getGamesFromApiAsync() {
-//   return fetch('http://localhost:8080/games')
-//     .then((response) => response.json())
-//     .then((responseJson) => {
-//       return responseJson.games;
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-
-
   render() {
 
 

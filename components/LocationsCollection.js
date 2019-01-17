@@ -98,7 +98,7 @@ class LocationsCollection  extends Component {
     console.log("what is game_date", newGame.game_date);
     console.log("what is newGame after", newGame);
 
-    axios.post('http://192.168.0.12:8080/sspickup/games', newGame)
+    axios.post('http://192.168.1.34:8080/sspickup/games', newGame)
     .then( (response) => {
       console.log('API response success!', response);
       console.log("is new game really undefined?", newGame);
@@ -116,7 +116,7 @@ class LocationsCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://192.168.0.12:8080/sspickup/locations',{
+      let response = await fetch('http://192.168.1.34:8080/sspickup/locations',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',

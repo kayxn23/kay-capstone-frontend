@@ -6,14 +6,24 @@ import TabBarIcon from '../components/TabBarIcon';
 import LocationsScreen from '../screens/LocationsScreen';
 import GamesScreen from '../screens/GamesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import WelcomeScreen from '../screens/WelcomeScreen';
+
+import {TabNavigator} from 'react-navigation';
 
 
 
-const HomeStack = createStackNavigator({
+
+
+const WelcomeStack = createStackNavigator({
+  Welcome: WelcomeScreen,
+});
+
+
+const LocationsStack = createStackNavigator({
   Home: LocationsScreen,
 });
 
-HomeStack.navigationOptions = {
+LocationsStack.navigationOptions = {
   tabBarLabel: 'Locations',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -23,11 +33,13 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
+
+
+const GamesStack = createStackNavigator({
   Links: GamesScreen,
 });
 
-LinksStack.navigationOptions = {
+GamesStack.navigationOptions = {
   tabBarLabel: 'Games',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -37,11 +49,11 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
+const AccountStack = createStackNavigator({
   Settings: SettingsScreen,
 });
 
-SettingsStack.navigationOptions = {
+AccountStack.navigationOptions = {
   tabBarLabel: 'Account',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -52,7 +64,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  LocationsStack,
+  GamesStack,
+  AccountStack,
 });

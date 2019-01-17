@@ -11,6 +11,7 @@ class Slides extends Component {
           title="Let's go!"
           raised
           buttonStyle={styles.buttonstyle}
+          onPress={this.props.onComplete}
         />
       );
     }

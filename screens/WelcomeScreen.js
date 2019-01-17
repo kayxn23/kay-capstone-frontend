@@ -19,10 +19,12 @@ class WelcomeScreen  extends Component {
   }
 
   render() {
+    if (_.isNull(this.state.token)) {
+      return <AppLoading/>
+    }
+    
     return (
-      if(_.isNull(this.state.token)) {
-        return <AppLoading/>
-      }
+
       <View>
         <Slides data={SLIDE_DATA}
                 onComplete={this.onSlidesComplete}/>
