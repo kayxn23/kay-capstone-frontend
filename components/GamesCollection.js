@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import axios from 'axios';
-import { FlatList, ActivityIndicator} from 'react-native';
+import { FlatList, ActivityIndicator, Button} from 'react-native';
 import {List, ListItem, SearchBar} from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
 
 import {
   Modal,
@@ -47,13 +48,17 @@ class GamesCollection  extends Component {
   }
 
   renderFooter = () => {
-    if (!this.state.loading) return null;
+    //if (!this.state.loading) return null;
     return (
       <View
-        style={{paddingVertical: 20,
-               borderTopWidth: 1,
-                borderTopColor: '#CED0CE'}}>
-        <ActivityIndicator animating size="large"/>
+        style={{
+               borderTopWidth: 10,
+               borderTopColor: '#CED0CE'}}>
+        {/*/<ActivityIndicator animating size="large"/>*/}
+
+        <TouchableHighlight onPress={this.closeModal}>
+        <Text style={{backgroundColor: 'pink', justifyContent: 'center'}}> CLOSE MODAL </Text>
+        </TouchableHighlight>
 
       </View>
     )
@@ -147,7 +152,7 @@ class GamesCollection  extends Component {
 
         <View >
           <Modal
-              transparent={true}
+              transparent={false}
               animationType="slide"
               visible={this.state.displayModal}
           >
@@ -160,6 +165,7 @@ class GamesCollection  extends Component {
                       roundAvatar
                       title={item.title}
                       subtitle={item.description}
+                      leftIcon={{name: 'event'}}
                     />
                   )}
                   keyExtractor={(item) => item.game_id}
@@ -167,11 +173,6 @@ class GamesCollection  extends Component {
                   ListHeaderComponent={this.renderHeader}
                   ListFooterComponent={this.renderFooter}
                 />
-
-              <Text>I am the modal content!</Text>
-              <TouchableHighlight onPress={this.closeModal}>
-              <Text> CLOSE MODAL </Text>
-              </TouchableHighlight>
             </View>
             </View>
           </Modal>
