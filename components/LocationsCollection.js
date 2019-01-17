@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import NewGameForm from './NewGameForm';
+
 import axios from 'axios';
-import moment from 'moment';
-
-
-import { View,
-  Text,
-  ActivityIndicator,
+import { Text,
+  TextInput,
   TouchableHighlight,
-  Modal,
-  StyleSheet} from 'react-native'
+  View,
+  StyleSheet,
+  Button
+  } from 'react-native';
+
+
+import {
+  ActivityIndicator,
+  Modal} from 'react-native'
 
 
 class LocationsCollection  extends Component {
@@ -25,8 +29,22 @@ class LocationsCollection  extends Component {
       displayModal: false,
       displayModalCreateGame: false,
       selectedLocation: '',
-      organizer: {"player_id": 8}
+      organizer: {"player_id": 8},
+      displayModalLogin: false,
+      username: '',
+      password: '',
     }
+  }
+
+  onLogin = () => {
+    this.setState({displayModalLogin: false})
+
+    // check if úsername exists in the database
+
+    // if yes, pull the users profile from the DB and set the session data for the app with that users info
+    // global.username = 'Kay1Soccer'
+    // global.firstname = 'Kay'
+    // if no, create a new entry in the database for that user and set the session data to their profile
   }
 
   triggerModal = (location) => {
@@ -80,7 +98,7 @@ class LocationsCollection  extends Component {
     console.log("what is game_date", newGame.game_date);
     console.log("what is newGame after", newGame);
 
-    axios.post('http://10.0.68.230:8080/sspickup/games', newGame)
+    axios.post('http://192.168.0.12:8080/sspickup/games', newGame)
     .then( (response) => {
       console.log('API response success!', response);
       console.log("is new game really undefined?", newGame);
@@ -98,7 +116,7 @@ class LocationsCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://10.0.68.230:8080/sspickup/locations',{
+      let response = await fetch('http://192.168.0.12:8080/sspickup/locations',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
@@ -206,6 +224,46 @@ class LocationsCollection  extends Component {
         </Modal>
       </View>
 
+
+
+      {/*login modal below */}
+
+
+      <View>
+        <Modal
+            transparent={false}
+            visible={this.state.displayModalLogin}
+        >
+        <View >
+          <View>
+            <View>
+
+            <View >
+              <TextInput
+                value={this.state.username}
+                onChangeText={(username) => this.setState({ username })}
+                placeholder={'Username'}
+              />
+              <TextInput
+                value={this.state.password}
+                onChangeText={(password) => this.setState({ password })}
+                placeholder={'Password'}
+                secureTextEntry={true}
+              />
+
+              <Button
+                title={'Login'}
+                onPress={this.onLogin.bind(this)}
+              />
+            </View>
+
+
+            </View>
+          </View>
+          </View>
+        </Modal>
+      </View>
+
       </MapView>
 
 
@@ -246,9 +304,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     height: 100,
     padding: 22
-  },
-  container: {
-    flex: 1,
   },
   post: {
     flexDirection: 'row',
@@ -294,54 +349,22 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
   },
+  container: {
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: '#ecf0f1',
+},
+input: {
+  width: 200,
+  height: 44,
+  padding: 10,
+  borderWidth: 1,
+  borderColor: 'black',
+  marginBottom: 10,
+},
 })
 
-// async function getGamesFromApi() {
-//   try {
-//     let response = await fetch (
-//       'https://baconipsum.com/api/?type=meat-and-filler',
-//     );
-//     let responseJson = await response.json();
-//     console.log(responseJson);
-//     return responseJson.games;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-//
-// getGamesFromApi()
 
-//    const {games, loading, error} = this.state
-//
-//    if (loading) {
-//      return (
-//        <Text>
-//          Loading...
-//        </Text>
-//      )
-//    }
-//
-//    if (error) {
-//      return (
-//          <Text>
-//
-//            Failed to load games!
-//          </Text>
-//      )
-//    }
-//
-//    return (
-//      <ScrollView>
-//          {this.state.games === [] && <Text>Loading games...</Text>}
-//          {
-//            <View>
-//            <Text>printing a game!!!!</Text>
-//            <Text>{this.makeGames()}</Text>
-//            </View>
-//          }
-//      </ScrollView>
-//    )
-//  }
-// }
 
 export default LocationsCollection ;
