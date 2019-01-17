@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import axios from 'axios';
+import { FlatList, ActivityIndicator} from 'react-native';
+import {List, ListItem, SearchBar} from 'react-native-elements';
 
 import {
   Modal,
   TouchableHighlight,
   View,
   Text,
-  ActivityIndicator,
   StyleSheet } from 'react-native'
 
 
@@ -22,6 +23,38 @@ class GamesCollection  extends Component {
       games: [],
       displayModal: false
     }
+  }
+
+  renderSeperator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '86%',
+          backgroundColor: '#CED0CE',
+          marginLeft: '14%'
+
+        }}
+        />
+    )
+  }
+
+  renderHeader = () => {
+    return (
+      <SearchBar placeholder="Type here.." lightTheme round  />
+    )
+  }
+
+  renderFooter = () => {
+    if (!this.state.loading) return null;
+    return (
+      <View
+        style={{paddingVertical: 20,
+               borderTopWidth: 1,
+                borderTopColor: '#CED0CE'}}>
+        <ActivityIndicator animating size="large"/>
+      </View>
+    )
   }
 
   triggerModal() {
@@ -45,6 +78,7 @@ class GamesCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
+      //cody 192.168.1.34
       let response = await fetch('http://192.168.1.34:8080/sspickup/games',{
         headers:{
           Accept:'application/json',
@@ -131,6 +165,21 @@ class GamesCollection  extends Component {
           >
           <View style={styles.modalStyle}>
             <View>
+                <FlatList
+                  data={this.state.games}
+                  renderItem={({item}) => (
+                    <ListItem
+                      roundAvatar
+                      title={item.title}
+                      subtitle={item.description}
+                    />
+                  )}
+                  keyExtractor={(item) => item.game_id}
+                  ItemSeparatorComponent={this.renderSeperator}
+                  ListHeaderComponent={this.renderHeader}
+                  ListFooterComponent={this.renderFooter}
+                />
+
               <Text>I am the modal content!</Text>
               <TouchableHighlight onPress={this.closeModal}>
               <Text> CLOSE MODAL </Text>
@@ -191,16 +240,6 @@ const styles = StyleSheet.create({
   },
 })
 
-
-//      <ScrollView>
-//          {this.state.games === [] && <Text>Loading games...</Text>}
-//          {
-//            <View>
-//            <Text>printing a game!!!!</Text>
-//            <Text>{this.makeGames()}</Text>
-//            </View>
-//          }
-//      </ScrollView>
 
 
 export default GamesCollection ;
