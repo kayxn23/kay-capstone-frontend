@@ -7,11 +7,14 @@ import { Text,
   StyleSheet,
   DatePickerIOS
   } from 'react-native';
-import moment from 'moment';
 
-// import DatePickerIOS from 'react-native-universal-datepicker-ios';
+//import DatePickerIOS from 'react-native-universal-datepicker-ios';
 //               dateFormat={"yyyy-MM-dd HH:mm:ss Z"}
+//dateFormat={"yyyy-MM-dd HH:mm:ss Z"}
 
+//              onConfirm={this.handleDate}
+
+let moment = require('moment');
 
 
   class NewGameForm extends Component {
@@ -28,13 +31,18 @@ import moment from 'moment';
 
       this.setDate = this.setDate.bind(this);
     }
-
+// "yyyy-MM-dd HH:mm:ss Z"
 //2019-01-16T09:05:41.679Z
 //2019-01-19 10:23:54 -0800
+  //const newDate = new Date(datetime/the date coming back)
+  // let newDate1 = moment(newDate).format('yyyy-MM-dd HH:mm:ss Z');
+  // console.log(newDate1);
+
+
+//must set date object to setDate :)
+
     setDate(newDate) {
-      let newDate1 = moment(newDate).format('yyyy');
-      console.log(newDate1);
-      this.setState({game_date: newDate1})
+      this.setState({game_date: newDate})
     }
 
     onSubmit = (event) => {
@@ -44,9 +52,9 @@ import moment from 'moment';
 
       console.log(event);
       this.props.addGameCallback(this.state);
+      console.log('what is this.state?', this.state);
       this.resetState();
     }
-
 
       resetState = () => {
         this.setState({
@@ -54,7 +62,7 @@ import moment from 'moment';
           description: '',
           location: '',
           organizer: '',
-          game_date: ''
+          game_date: new Date()
       });
     }
 
@@ -76,12 +84,10 @@ import moment from 'moment';
             style={{ height: 100, width: 300 }}
           />
           <DatePickerIOS
-              date={this.state.game_date}
-              onDateChange={this.setDate}
-              style={{ height: 150, width: 300 }}
-              dateFormat={"yyyy-MM-dd HH:mm:ss Z"}
-              timeZoneOffsetInMinutes={"-7 * 60"}
-            />
+            date={this.state.game_date}
+            onDateChange={this.setDate}
+            style={{ height: 150, width: 300 }}
+          />
 
           <TouchableHighlight style={styles.buttonstyle} onPress={this.onSubmit}>
           <Text style={styles.buttontextstyle}> CREATE GAME </Text>

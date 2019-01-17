@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import NewGameForm from './NewGameForm';
 import axios from 'axios';
+import moment from 'moment';
 
 
 import { View,
@@ -45,19 +46,47 @@ class LocationsCollection  extends Component {
     this.setState({displayModalCreateGame:false});
   }
 
+//2019-01-19 10:23:54 -0800
+//2019-01-16 18:52:28 Z
+//2019-01-16T18:54:20Z
+  // addGameCallbacktoGamesCollection = (newGame) => {
+  //   //how do i get this to call addCard function that lives in GamesCollection
+  // }
+
+
   addGame = (newGame) => {
     console.log("what is new game",newGame);
-    axios.post('http://192.168.0.12:8080/sspickup/games', newGame)
+    console.log("what is game_date", newGame.game_date);
+    //2019-01-19 10:23:54 -0800
+
+    const getFormattedDate = (date) =>
+    {
+      const newGameDate = new Date(date);
+      const month = newGameDate.getMonth() + 1;
+      const monthPrefix = month > 9 ? '-' : '-0';
+      return newGameDate.getFullYear()
+                          + monthPrefix + month
+                          + '-' + newGameDate.getDate()
+                          + ' ' + newGameDate.getHours()
+                          + ':' + newGameDate.getMinutes()
+                          + ':' + newGameDate.getSeconds()
+                          + ' ' + '-0800';
+    }
+
+    newGame.game_date = getFormattedDate(newGame.game_date);
+    // newGame.game_date = "2019-01-19 10:23:54 -0800"
+
+    // let game_date1 = moment.utc(newGame.game_date, "yyyy-MM-dd HH:mm:ss Z");
+    console.log("what is game_date", newGame.game_date);
+    console.log("what is newGame after", newGame);
+
+    axios.post('http://10.0.68.230:8080/sspickup/games', newGame)
     .then( (response) => {
       console.log('API response success!', response);
-      const {games} = this.state;
-      games.push(newGame);
-      this.setState({
-        games
-      })
+      console.log("is new game really undefined?", newGame);
     })
     .catch(error => {
-      console.log(error.message);
+      console.log("logging error from post", error.message);
       this.setState({
         error: error.message
       });
@@ -69,7 +98,7 @@ class LocationsCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://192.168.0.12:8080/sspickup/locations',{
+      let response = await fetch('http://10.0.68.230:8080/sspickup/locations',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
@@ -165,7 +194,7 @@ class LocationsCollection  extends Component {
               organizer={this.state.organizer}
               addGameCallback={this.addGame}
             />
-            
+
             <TouchableHighlight style={styles.buttonstyle} onPress={this.closeCreateGameFormModal}>
             <Text style={styles.buttontextstyle}> CANCEL </Text>
             </TouchableHighlight>

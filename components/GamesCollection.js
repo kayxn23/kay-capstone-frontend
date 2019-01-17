@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
+import axios from 'axios';
 
 import {
   Modal,
@@ -38,11 +39,13 @@ class GamesCollection  extends Component {
 //   });
 // }
 
+
+
   componentDidMount = async () => {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://192.168.0.12:8080/sspickup/games',{
+      let response = await fetch('http://10.0.68.230:8080/sspickup/games',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
