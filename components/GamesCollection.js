@@ -21,6 +21,7 @@ class GamesCollection  extends Component {
       loading: true,
       error: false,
       games: [],
+      gamesByLocation: [],
       displayModal: false
     }
   }
@@ -53,24 +54,33 @@ class GamesCollection  extends Component {
                borderTopWidth: 1,
                 borderTopColor: '#CED0CE'}}>
         <ActivityIndicator animating size="large"/>
+
       </View>
     )
   }
 
-  triggerModal() {
+  triggerModal(locationId) {
     this.setState({displayModal: true});
+
+    axios.get('http://172.24.25.138:8080/sspickup/games?location_id=' + locationId)
+        .then((response) => {
+          console.log("logging response.data from get games by loc_id",response.data);
+
+          this.setState({
+            gamesByLocation: response.data,
+          });
+        })
+        .catch((error) => {
+          console.log("printing error mesg", error);
+          this.setState({
+            error: error.message,
+          })
+        });
   }
 
   closeModal = () => {
     this.setState({displayModal:false});
   }
-
-//   makeGames = () => {
-//   return this.state.cards.map( (card) => {
-//     console.log("printing card id from borad",card.id);
-//     return <Game key={card.id} id={card.id} text={card.text} emoji={card.emoji} removeCardCallback={this.removeCard}/>
-//   });
-// }
 
 
 
@@ -79,7 +89,7 @@ class GamesCollection  extends Component {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
       //cody 192.168.1.34
-      let response = await fetch('http://192.168.1.34:8080/sspickup/games',{
+      let response = await fetch('http://172.24.25.138:8080/sspickup/games',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
@@ -91,28 +101,6 @@ class GamesCollection  extends Component {
       console.log(e);
       this.setState({loading: false, error: true})
     }
-  }
-
-  renderGame = ({id, title, location}, i) => {
-    return (
-      <View
-      key={id}
-      style={styles.post}>
-      <View style={styles.postNumber}>
-      <Text>
-      {i + 1}
-      </Text>
-      </View>
-      <View style={styles.postContent}>
-      <Text>
-      {title}
-      </Text>
-      <Text style={styles.postBody}>
-      {location.latitude + ", " + location.longitude}
-      </Text>
-      </View>
-      </View>
-    )
   }
 
 
@@ -153,7 +141,7 @@ class GamesCollection  extends Component {
           coordinate={game.location}
           title={game.title}
           description={game.description}
-          onPress = { () => this.triggerModal() }
+          onPress = { () => this.triggerModal(game.location.id) }
         />
       ))}
 
@@ -163,10 +151,10 @@ class GamesCollection  extends Component {
               animationType="slide"
               visible={this.state.displayModal}
           >
-          <View style={styles.modalStyle}>
+          <View style={styles.gameListStyle}>
             <View>
                 <FlatList
-                  data={this.state.games}
+                  data={this.state.gamesByLocation}
                   renderItem={({item}) => (
                     <ListItem
                       roundAvatar
@@ -195,6 +183,9 @@ class GamesCollection  extends Component {
 }
 
 const styles = StyleSheet.create({
+  gameListStyle: {
+
+  },
   modalStyle: {
     flex: 1,
     flexDirection: 'column',
