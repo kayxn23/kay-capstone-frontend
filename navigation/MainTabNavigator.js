@@ -7,6 +7,8 @@ import LocationsScreen from '../screens/LocationsScreen';
 import GamesScreen from '../screens/GamesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
+
+
 const HomeStack = createStackNavigator({
   Home: LocationsScreen,
 });
@@ -18,7 +20,7 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
+          ? `md-pin${focused ? '' : '-outline'}`
           : 'md-information-circle'
       }
     />
@@ -34,7 +36,7 @@ LinksStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'md-football' : 'md-link'}
     />
   ),
 };
@@ -44,11 +46,11 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Account',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? "md-happy" : 'md-options'}
     />
   ),
 };

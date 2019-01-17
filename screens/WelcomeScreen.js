@@ -20,7 +20,7 @@ class WelcomeScreen  extends Component {
 
   render() {
     return (
-      if (_.isNull(this.state.token)) {
+      if(_.isNull(this.state.token)) {
         return <AppLoading/>
       }
       <View>
