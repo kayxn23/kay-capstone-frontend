@@ -191,8 +191,8 @@ class GamesCollection  extends Component {
                   data={this.state.gamesByLocation}
                   renderItem={({item}) => (
                     <ListItem
-                      title={item.title}
-                      subtitle={item.description + " (" + item.players.length + " players in this game)"}
+                      title={item.title + " (" + item.players.length + " players joined)"}
+                      subtitle={item.description + "Time:" + item.game_date}
                       leftIcon={{name: 'event'}}
                       rightIcon={<Button title='join'
                                           color='orange'
