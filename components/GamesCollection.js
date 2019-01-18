@@ -67,7 +67,7 @@ class GamesCollection  extends Component {
   triggerModal(locationId) {
     this.setState({displayModal: true});
 
-    axios.get('http://172.24.25.138:8080/sspickup/games?location_id=' + locationId)
+    axios.get('http://192.168.1.34:8080/sspickup/games?location_id=' + locationId)
         .then((response) => {
           console.log("logging response.data from get games by loc_id",response.data);
 
@@ -94,7 +94,7 @@ class GamesCollection  extends Component {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
       //cody 192.168.1.34
-      let response = await fetch('http://172.24.25.138:8080/sspickup/games',{
+      let response = await fetch('http://192.168.1.34:8080/sspickup/games',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
