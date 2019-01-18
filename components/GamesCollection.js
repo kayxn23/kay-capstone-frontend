@@ -27,6 +27,10 @@ class GamesCollection  extends Component {
     }
   }
 
+  joinGameCallback = (gameId) => {
+    console.log(gameId);
+  }
+
   renderSeperator = () => {
     return (
       <View
@@ -162,10 +166,12 @@ class GamesCollection  extends Component {
                   data={this.state.gamesByLocation}
                   renderItem={({item}) => (
                     <ListItem
-                      roundAvatar
                       title={item.title}
                       subtitle={item.description}
                       leftIcon={{name: 'event'}}
+                      rightIcon={<Button title='join'
+                                          color='orange'
+                                          onPress={() => this.joinGameCallback(item.game_id)}/>}
                     />
                   )}
                   keyExtractor={(item) => item.game_id}
