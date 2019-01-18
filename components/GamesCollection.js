@@ -159,6 +159,7 @@ class GamesCollection  extends Component {
       )
     }
 
+
     return (
       <MapView
       style={{ flex: 1 }}
@@ -173,8 +174,8 @@ class GamesCollection  extends Component {
         <Marker
           key={game.game_id}
           coordinate={game.location}
-          title={game.title}
-          description={game.description}
+          title={game.location.location_title}
+          description={"Games at this location:" + this.state.gamesByLocation.length}
           onPress = { () => this.triggerModal(game.location.id) }
         />
       ))}
