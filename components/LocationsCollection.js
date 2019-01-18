@@ -28,7 +28,7 @@ class LocationsCollection  extends Component {
       locations: [],
       displayModal: false,
       displayModalCreateGame: false,
-      selectedLocation: '',
+      selectedLocation: {},
       organizer: {"player_id": 8},
       displayModalLogin: false,
       username: '',

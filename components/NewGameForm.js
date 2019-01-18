@@ -14,7 +14,6 @@ import { Text,
 
 //              onConfirm={this.handleDate}
 
-let moment = require('moment');
 
 
   class NewGameForm extends Component {
@@ -60,8 +59,8 @@ let moment = require('moment');
         this.setState({
           title: '',
           description: '',
-          location: '',
-          organizer: '',
+          location: {},
+          organizer: {},
           game_date: new Date()
       });
     }
