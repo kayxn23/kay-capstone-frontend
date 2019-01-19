@@ -3,7 +3,7 @@ import MapView, { Marker } from 'react-native-maps';
 import NewGameForm from './NewGameForm';
 
 import axios from 'axios';
-import { Text,
+import { Text, Alert,
   TextInput,
   TouchableHighlight,
   View,
@@ -16,6 +16,7 @@ import {
   ActivityIndicator,
   Modal} from 'react-native'
 
+//  Alert.alert("game created!");
 
 class LocationsCollection  extends Component {
 
@@ -100,8 +101,10 @@ class LocationsCollection  extends Component {
 
     axios.post('http://192.168.1.34:8080/sspickup/games', newGame)
     .then( (response) => {
-      console.log('API response success!', response);
-      console.log("is new game really undefined?", newGame);
+
+      this.setState({
+        displayModalCreateGame: false
+      })
     })
     .catch(error => {
       console.log("logging error from post", error.message);
@@ -143,6 +146,7 @@ class LocationsCollection  extends Component {
     }
 
     if (error) {
+      console.log('what is the error before failed to load posts',error);
       return (
         <View style={styles.center}>
         <Text>

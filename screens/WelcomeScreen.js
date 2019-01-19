@@ -1,39 +1,24 @@
-import React, { Component } from 'react';
-import Slides from '../components/Slides';
-import { AppLoading } from 'expo';
-import {
-  View,
-  Text,
-  } from 'react-native'
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
-const SLIDE_DATA = [
-  { text: 'Welcome to Seattle Soccer Meetup', color: '#03A9F4'},
-  { text: 'this is what the app is!', color: '#03A9F4'}
-];
 
-class WelcomeScreen  extends Component {
-  state = { token: null }
 
-  onSlidesComplete = () => {
-    this.props.navigation.navigate('auth');
-  }
+export default class WelcomeScreen extends React.Component {
+
+
 
   render() {
-    if (_.isNull(this.state.token)) {
-      return <AppLoading/>
-    }
-    
     return (
-
-      <View>
-        <Slides data={SLIDE_DATA}
-                onComplete={this.onSlidesComplete}/>
+      <View style={styles.container}>
+        
       </View>
     );
   }
 }
 
-
-
-
-export default WelcomeScreen ;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
