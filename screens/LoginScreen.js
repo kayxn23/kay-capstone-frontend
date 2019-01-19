@@ -27,12 +27,19 @@ class LoginScreen  extends Component {
 
     this.state = {
       token: '',
-      loginUsername: this.props.username,
-      loginPassword: this.props.password,
+      loginUsername: '',
+      loginPassword: ''
     }
   }
 
 
+
+
+  //   UNSAFE_componentWillReceiveProps(nextProps) {
+  //    if(this.props.username !== nextProps.username) {
+  //      this.setState({loginUsername: nextProps.username});
+  //    }
+  // }
 
 
   render() {
@@ -45,14 +52,14 @@ class LoginScreen  extends Component {
         <View style={styles.container}>
         <Text> Welcome to the Login Screen </Text>
         <TextInput
-          value={this.loginUsername}
-          onChangeText={(username) => this.setState({ username })}
+          value={this.state.loginUsername}
+          onChangeText={(loginUsername) => this.setState({ loginUsername })}
           placeholder={'Username'}
           style={styles.input}
         />
         <TextInput
-          value={this.loginPassword}
-          onChangeText={(password) => this.setState({ password })}
+          value={this.state.loginPassword}
+          onChangeText={(loginPassword) => this.setState({ loginPassword })}
           placeholder={'Password'}
           secureTextEntry={true}
           style={styles.input}
@@ -61,7 +68,7 @@ class LoginScreen  extends Component {
         <Button
           title={'Login'}
           style={styles.input}
-          onPress={this.props.loginCallback}
+          onPress={() => this.props.loginCallback(this.state.loginUsername, this.state.loginPassword)}
         />
         </View>
     );
@@ -88,8 +95,6 @@ const styles = StyleSheet.create({
 });
 
 LoginScreen.propTypes = {
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
   loginCallback: PropTypes.func.isRequired,
 };
 

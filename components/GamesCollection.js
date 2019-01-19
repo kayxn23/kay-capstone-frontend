@@ -29,7 +29,7 @@ class GamesCollection  extends Component {
       error: false,
       games: [],
       gamesByLocation: [],
-      displayModal: false
+      displayModalGamesList: false
     }
   }
 
@@ -106,14 +106,14 @@ class GamesCollection  extends Component {
   }
 
   triggerModal(locationId) {
-    this.setState({displayModal: true});
+    this.setState({displayModalGamesList: true});
 
     this.getGamesFromServer(locationId);
 
   }
 
   closeModal = () => {
-    this.setState({displayModal:false});
+    this.setState({displayModalGamesList:false});
   }
 
 
@@ -184,7 +184,7 @@ class GamesCollection  extends Component {
           <Modal
               transparent={false}
               animationType="slide"
-              visible={this.state.displayModal}
+              visible={this.state.displayModalGamesList}
           >
           <View style={styles.gameListStyle}>
             <View>

@@ -65,6 +65,7 @@ class LocationsCollection  extends Component {
     this.setState({displayModalCreateGame:false});
   }
 
+
 //2019-01-19 10:23:54 -0800
 //2019-01-16 18:52:28 Z
 //2019-01-16T18:54:20Z
@@ -93,11 +94,9 @@ class LocationsCollection  extends Component {
     }
 
     newGame.game_date = getFormattedDate(newGame.game_date);
-    // newGame.game_date = "2019-01-19 10:23:54 -0800"
 
-    // let game_date1 = moment.utc(newGame.game_date, "yyyy-MM-dd HH:mm:ss Z");
-    console.log("what is game_date", newGame.game_date);
-    console.log("what is newGame after", newGame);
+
+
 
     axios.post('http://192.168.1.34:8080/sspickup/games', newGame)
     .then( (response) => {

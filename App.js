@@ -1,5 +1,5 @@
 import React from "react";
-import firebase from './firebase.js'; // <--- add this line
+import firebase, { auth, provider } from './firebase.js';
 
 import {
   Button,
@@ -20,30 +20,22 @@ export default class App extends React.Component {
 
     this.state = {
       isLoadingComplete: false,
-      username: "",
-      password: true,
+      userPresent: false,
+      user: null
     };
   }
 
 
 
-    onLogin(e) {
-      const { username, password } = this.state;
-
-      Alert.alert("Credentials", `${username} + ${password}`);
-
-
-      e.preventDefault();
-        const itemsRef = firebase.database().ref('usernames&pws');
-        const item = {
-          username: this.state.username,
-          password: this.state.password,
-        }
-        itemsRef.push(item);
-        this.setState({
-          username: '',
-          password: ''
-        });
+    onLogin = (username, password) => {
+      // Alert.alert("Credentials", `${username} + ${password}`);
+      //
+      //   const itemsRef = firebase.database().ref('usernames&pws');
+      //   const item = {
+      //     username: username,
+      //     password: password,
+      //   }
+      //   itemsRef.push(item);
     }
 
 
@@ -57,13 +49,11 @@ export default class App extends React.Component {
           onFinish={this._handleFinishLoading}
         />
       );
-    } else if (!this.state.password) {
+    } else if (!this.state.userPresent) {
       //if password is false then call a function that changes the home
       //screen in maintab navigtor to
       return (
         <LoginScreen
-          username={this.state.username}
-          password={this.state.password}
           loginCallback={this.onLogin.bind(this)}
         />
       );
