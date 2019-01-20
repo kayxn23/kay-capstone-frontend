@@ -1,5 +1,4 @@
 import React from "react";
-import firebase, { auth, provider } from './firebase.js';
 
 import {
   Button,

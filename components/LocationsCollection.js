@@ -92,11 +92,7 @@ class LocationsCollection  extends Component {
                           + ':' + newGameDate.getSeconds()
                           + ' ' + '-0800';
     }
-
     newGame.game_date = getFormattedDate(newGame.game_date);
-
-
-
 
     axios.post('http://192.168.1.34:8080/sspickup/games', newGame)
     .then( (response) => {

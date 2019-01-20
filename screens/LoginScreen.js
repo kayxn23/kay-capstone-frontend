@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Slides from '../components/Slides';
 import { AppLoading } from 'expo';
 // import firebase, { auth, provider } from '../firebase.js';
 // import firebase from 'expo-firebase-app';
 import { Facebook } from 'expo';
 import firebase from 'firebase';
+import axios from 'axios';
+
 import {
-  Alert,
   View,
-  TextInput,
-  Button,
   StyleSheet,
   TouchableHighlight,
   Text
@@ -39,6 +37,29 @@ const FACEBOOK_APP_ID = '227546764797077';
   //   this.props.navigation.navigate('auth');
   // }
 
+
+  // firebase.auth().user.getIdToken(true).then(function(idToken) {
+  //   // Send token to your backend via HTTPS
+  //   // ...
+  //   axios.post('http://192.168.1.34:8080/sspickup/games', idToken)
+  //   .then( (response) => {
+  //     console.log('WHAT CAME BACK FROM POST idTOKEN', response);
+  //
+  //     this.setState({
+  //       displayModalCreateGame: false
+  //     })
+  //   })
+  //   .catch(error => {
+  //     console.log("ERROR FROM SERVER POSTING new user", error.message);
+  //     this.setState({
+  //       error: error.message
+  //     });
+  //   });
+  //
+  // }).catch(function(error) {
+  //   console.log('PRINTING ERROR FROM TRYING TO SEND TOKEN TO SERVER', error);
+  // });
+
 class LoginScreen  extends Component {
   constructor(props){
     super(props);
@@ -54,8 +75,27 @@ class LoginScreen  extends Component {
 
    componentDidMount() {
     auth.onAuthStateChanged(user => {
-      console.log('this is the user',user);
       if (user != null) {
+        console.log('THIS IS THE USER', user.providerData[0]);
+
+        firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+          // Send token to your backend via HTTPS
+          // ...
+          axios.post('http://192.168.1.34:8080/sspickup/games', idToken)
+          .then( (response) => {
+            console.log('WHAT CAME BACK FROM POST idTOKEN', response);
+          })
+          .catch(error => {
+            console.log("ERROR FROM SERVER POSTING new user", error.message);
+            this.setState({
+              error: error.message
+            });
+          });
+
+        }).catch(function(error) {
+          console.log('PRINTING ERROR FROM TRYING TO SEND TOKEN TO SERVER', error);
+        });
+
         this.setState({ logInStatus: 'We are authenticated now!' });
       } else {
         this.setState({ logInStatus: 'You are currently logged out.' });
@@ -81,6 +121,10 @@ class LoginScreen  extends Component {
       //Firebase credential is created with the Facebook access token.
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
       console.log('printing credential',credential);
+      console.log('user is null at this point', this.state.user);
+      //take credential.accessToken and
+
+
       auth.signInAndRetrieveDataWithCredential(credential).catch(error => {
         this.setState({ errorMessage: error.message });
       });
@@ -94,14 +138,17 @@ class LoginScreen  extends Component {
 
     if(this.state.logInStatus === "We are authenticated now!") {
       return (
-        <TouchableHighlight
-          style={styles.facebookButton}
-          name="Facebook"
-          underlayColor={styles.facebookButton.backgroundColor}
-          onPress={this.logOutOfFacebookButton}
-        >
-          <Text style={styles.facebookButtonText}>Log out</Text>
-        </TouchableHighlight>
+        <View style={styles.container}>
+            <TouchableHighlight
+              style={styles.facebookButton}
+              name="Facebook"
+              underlayColor={styles.facebookButton.backgroundColor}
+              onPress={this.logOutOfFacebookButton}
+            >
+              <Text style={styles.facebookButtonText}>Log out</Text>
+            </TouchableHighlight>
+        </View>
+
       );
     }
 
@@ -109,9 +156,6 @@ class LoginScreen  extends Component {
     return (
 
         <View style={styles.container}>
-
-            <View style={styles.container}>
-
 
               <TouchableHighlight
                 style={styles.facebookButton}
@@ -126,7 +170,6 @@ class LoginScreen  extends Component {
               <Text>Logged In Status: {this.state.logInStatus}</Text>
               <View style={styles.space} />
               <Text> Log In Error Messages: {this.state.errorMessage}</Text>
-            </View>
 
         </View>
     );
@@ -166,7 +209,6 @@ const styles = StyleSheet.create({
 });
 
 LoginScreen.propTypes = {
-  loginCallback: PropTypes.func.isRequired,
 };
 
 
