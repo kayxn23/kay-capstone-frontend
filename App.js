@@ -27,19 +27,6 @@ export default class App extends React.Component {
 
 
 
-    onLogin = (username, password) => {
-      // Alert.alert("Credentials", `${username} + ${password}`);
-      //
-      //   const itemsRef = firebase.database().ref('usernames&pws');
-      //   const item = {
-      //     username: username,
-      //     password: password,
-      //   }
-      //   itemsRef.push(item);
-    }
-
-
-
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
@@ -53,9 +40,7 @@ export default class App extends React.Component {
       //if password is false then call a function that changes the home
       //screen in maintab navigtor to
       return (
-        <LoginScreen
-          loginCallback={this.onLogin.bind(this)}
-        />
+        <LoginScreen/>
       );
     } else {
       return (
