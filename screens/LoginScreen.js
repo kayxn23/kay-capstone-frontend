@@ -38,28 +38,6 @@ const FACEBOOK_APP_ID = '227546764797077';
   // }
 
 
-  // firebase.auth().user.getIdToken(true).then(function(idToken) {
-  //   // Send token to your backend via HTTPS
-  //   // ...
-  //   axios.post('http://192.168.1.34:8080/sspickup/games', idToken)
-  //   .then( (response) => {
-  //     console.log('WHAT CAME BACK FROM POST idTOKEN', response);
-  //
-  //     this.setState({
-  //       displayModalCreateGame: false
-  //     })
-  //   })
-  //   .catch(error => {
-  //     console.log("ERROR FROM SERVER POSTING new user", error.message);
-  //     this.setState({
-  //       error: error.message
-  //     });
-  //   });
-  //
-  // }).catch(function(error) {
-  //   console.log('PRINTING ERROR FROM TRYING TO SEND TOKEN TO SERVER', error);
-  // });
-
 class LoginScreen  extends Component {
   constructor(props){
     super(props);
@@ -81,9 +59,9 @@ class LoginScreen  extends Component {
         firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
           // Send token to your backend via HTTPS
           // ...
-          axios.post('http://192.168.1.34:8080/sspickup/games', idToken)
+          axios.post('http://192.168.1.34:8080/kickit/games', idToken)
           .then( (response) => {
-            console.log('WHAT CAME BACK FROM POST idTOKEN', response);
+            console.log('WHAT CAME BACK FROM POSTING THE idTOKEN', response);
           })
           .catch(error => {
             console.log("ERROR FROM SERVER POSTING new user", error.message);

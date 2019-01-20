@@ -94,7 +94,7 @@ class LocationsCollection  extends Component {
     }
     newGame.game_date = getFormattedDate(newGame.game_date);
 
-    axios.post('http://192.168.1.34:8080/sspickup/games', newGame)
+    axios.post('http://192.168.1.34:8080/kickit/games', newGame)
     .then( (response) => {
 
       this.setState({
@@ -114,7 +114,7 @@ class LocationsCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://192.168.1.34:8080/sspickup/locations',{
+      let response = await fetch('http://192.168.1.34:8080/kickit/locations',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',

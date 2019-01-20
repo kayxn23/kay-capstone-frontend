@@ -36,7 +36,7 @@ class GamesCollection  extends Component {
 // at some point once auth is set up pass the player object
   joinGameCallback = (gameId, locationId) => {
     console.log('this is the game id', gameId);
-    axios.patch('http://192.168.1.34:8080/sspickup/games/' + gameId + '/join', TEST_PLAYER)
+    axios.patch('http://192.168.1.34:8080/kickit/games/' + gameId + '/join', TEST_PLAYER)
         .then((response) => {
           console.log("what is? logging joinGameCallback response.data",response.data);
 
@@ -89,7 +89,7 @@ class GamesCollection  extends Component {
   }
 
   getGamesFromServer = (locationId) => {
-    axios.get('http://192.168.1.34:8080/sspickup/games?location_id=' + locationId)
+    axios.get('http://192.168.1.34:8080/kickit/games?location_id=' + locationId)
         .then((response) => {
           console.log("logging response.data from get games by loc_id",response.data);
 
@@ -123,7 +123,7 @@ class GamesCollection  extends Component {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
       //cody 192.168.1.34
-      let response = await fetch('http://192.168.1.34:8080/sspickup/games',{
+      let response = await fetch('http://192.168.1.34:8080/kickit/games',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
