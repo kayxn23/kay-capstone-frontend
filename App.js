@@ -7,7 +7,8 @@ import {
   Platform,
   StatusBar,
   StyleSheet,
-  View
+  View,
+  Modal
 } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
 import AppNavigator from "./navigation/AppNavigator";
@@ -19,11 +20,18 @@ export default class App extends React.Component {
 
     this.state = {
       isLoadingComplete: false,
-      userPresent: false,
+      showLoginScreenModal: true,
+      currentUser: {}
     };
   }
 
-
+  passUpCurrentUserCallback = (currentUser) => {
+    console.log(currentUser);
+    this.setState({
+      showLoginScreenModal: false,
+      currentUser: currentUser
+    });
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -34,13 +42,18 @@ export default class App extends React.Component {
           onFinish={this._handleFinishLoading}
         />
       );
-    } else if (!this.state.userPresent) {
-      //if password is false then call a function that changes the home
-      //screen in maintab navigtor to
+    } else if (this.state.currentUser === {}) {
       return (
-        <LoginScreen/>
+        <Modal
+            transparent={true}
+            animationType="slide"
+            visible={this.state.showLoginScreenModal}
+        >
+          <LoginScreen currentUserCallback={this.passUpCurrentUserCallback}/>
+        </Modal>
       );
     } else {
+      console.log("logging currentlyLoggedInPlayer from App.js", this.state.currentUser);
       return (
         <View style={styles.container}>
           {Platform.OS === "ios" && <StatusBar barStyle="default" />}

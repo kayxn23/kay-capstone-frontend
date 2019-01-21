@@ -105,6 +105,7 @@ class LocationsCollection  extends Component {
         })
       })
       .catch(error => {
+        Alert.alert("There was an issue creating this game, please try again.");
         console.log("logging error from post", error.message);
         this.setState({
           error: error.message

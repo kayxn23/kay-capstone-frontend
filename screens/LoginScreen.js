@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import Slides from '../components/Slides';
+import PropTypes from 'prop-types';
+
 import { AppLoading } from 'expo';
 // import firebase, { auth, provider } from '../firebase.js';
 // import firebase from 'expo-firebase-app';
 import { Facebook } from 'expo';
 import firebase from 'firebase';
+
 import axios from 'axios';
 
 import {
@@ -55,6 +58,8 @@ class LoginScreen  extends Component {
 
 
 
+
+
   async logOutOfFacebookButton() {
     console.log(auth);
     auth.signOut().then(function() {
@@ -80,8 +85,9 @@ class LoginScreen  extends Component {
           }
         })
 
-        let currentlyLoggedInPlayer = this.state.currentUser;
 
+
+        let currentlyLoggedInPlayer = this.state.currentUser;
 
         firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
           console.log('logging idToken', idToken);
@@ -91,7 +97,7 @@ class LoginScreen  extends Component {
                       currentlyLoggedInPlayer,
                       {headers: {'X-login-token': idToken}})
           .then( (response) => {
-            console.log('WHAT CAME BACK FROM POSTING THE idTOKEN', response);
+            this.props.currentUserCallback(currentlyLoggedInPlayer);
           })
           .catch(error => {
             console.log("ERROR FROM SERVER POSTING new user", error.message);
@@ -119,10 +125,6 @@ class LoginScreen  extends Component {
     if (type === 'success') {
       //Firebase credential is created with the Facebook access token.
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
-      console.log('printing credential',credential);
-      console.log('user is null at this point', this.state.user);
-      //take credential.accessToken and
-
 
       auth.signInAndRetrieveDataWithCredential(credential).catch(error => {
         this.setState({ errorMessage: error.message });
@@ -131,7 +133,7 @@ class LoginScreen  extends Component {
   }
 
   render() {
-    if (this.state.token === null) {
+    if (this.state.currentUser === {}) {
       return <AppLoading/>
     }
 
@@ -147,7 +149,6 @@ class LoginScreen  extends Component {
               <Text style={styles.facebookButtonText}>Log out</Text>
             </TouchableHighlight>
         </View>
-
       );
     }
 
@@ -208,6 +209,7 @@ const styles = StyleSheet.create({
 });
 
 LoginScreen.propTypes = {
+  currentUserCallback: PropTypes.func.isRequired,
 };
 
 
