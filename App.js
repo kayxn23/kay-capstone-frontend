@@ -20,7 +20,6 @@ export default class App extends React.Component {
     this.state = {
       isLoadingComplete: false,
       userPresent: false,
-      user: null
     };
   }
 

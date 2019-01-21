@@ -3,6 +3,7 @@ import MapView, { Marker } from 'react-native-maps';
 import axios from 'axios';
 import { FlatList, ActivityIndicator, Button} from 'react-native';
 import { ListItem, SearchBar} from 'react-native-elements';
+import firebase from 'firebase';
 
 import {
   Modal,
@@ -11,13 +12,14 @@ import {
   Text,
   StyleSheet } from 'react-native'
 
-const TEST_PLAYER =  {
-            "player_id": 11,
-            "first_name": "Anna",
-            "user_name": "anna23",
-            "games_played": 0,
-            "profile_picture": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-        }
+// const TEST_PLAYER =  {
+//             "player_id": 22,
+//             "first_name": "Mia",
+//             "user_name": "miaham",
+//             "games_played": 5,
+//             "user_id": "12ef456gh",
+//             "profile_picture": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+//         }
 
 class GamesCollection  extends Component {
 
@@ -36,7 +38,12 @@ class GamesCollection  extends Component {
 // at some point once auth is set up pass the player object
   joinGameCallback = (gameId, locationId) => {
     console.log('this is the game id', gameId);
-    axios.patch('http://192.168.1.34:8080/kickit/games/' + gameId + '/join', TEST_PLAYER)
+
+    firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+    axios.patch('http://192.168.1.34:8080/kickit/games/' + gameId + '/join',
+                TEST_PLAYER,
+                {headers: {'X-login-token': idToken}}
+               )
         .then((response) => {
           console.log("what is? logging joinGameCallback response.data",response.data);
 
@@ -49,6 +56,7 @@ class GamesCollection  extends Component {
             error: error.message,
           })
         });
+      });
   }
 
   renderSeperator = () => {

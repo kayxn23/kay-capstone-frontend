@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import NewGameForm from './NewGameForm';
+import firebase from 'firebase';
+
 
 import axios from 'axios';
 import { Text, Alert,
@@ -32,8 +34,6 @@ class LocationsCollection  extends Component {
       selectedLocation: {},
       organizer: {"player_id": 8},
       displayModalLogin: false,
-      username: '',
-      password: '',
     }
   }
 
@@ -94,19 +94,24 @@ class LocationsCollection  extends Component {
     }
     newGame.game_date = getFormattedDate(newGame.game_date);
 
-    axios.post('http://192.168.1.34:8080/kickit/games', newGame)
-    .then( (response) => {
+    firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+      axios.post('http://192.168.1.34:8080/kickit/games', newGame, {headers: {
+            'X-login-token': idToken
+        }})
+      .then( (response) => {
 
-      this.setState({
-        displayModalCreateGame: false
+        this.setState({
+          displayModalCreateGame: false
+        })
       })
-    })
-    .catch(error => {
-      console.log("logging error from post", error.message);
-      this.setState({
-        error: error.message
+      .catch(error => {
+        console.log("logging error from post", error.message);
+        this.setState({
+          error: error.message
+        });
       });
     });
+
   };
 
 

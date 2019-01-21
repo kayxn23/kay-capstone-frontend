@@ -28,6 +28,8 @@ const FACEBOOK_APP_ID = '227546764797077';
   const auth = firebase.auth();
 
 
+
+
 // const SLIDE_DATA = [
 //   { text: 'Welcome to Seattle Soccer Meetup', color: '#03A9F4'},
 //   { text: 'this is what the app is!', color: '#03A9F4'}
@@ -44,10 +46,22 @@ class LoginScreen  extends Component {
 
     this.state = {
       token: '',
-      user: null,
+      currentUser: {},
       logInStatus: 'signed out',
       errorMessage: 'none'
     }
+
+  }
+
+
+
+  async logOutOfFacebookButton() {
+    console.log(auth);
+    auth.signOut().then(function() {
+      console.log('Signed Out');
+      }, function(error) {
+      console.error('Sign Out Error', error);
+      });
   }
 
 
@@ -56,10 +70,26 @@ class LoginScreen  extends Component {
       if (user != null) {
         console.log('THIS IS THE USER', user.providerData[0]);
 
+        this.setState({
+          currentUser: {
+            "first_name": user.providerData[0].displayName,
+            "user_name": user.providerData[0].displayName,
+            "user_id": user.providerData[0].email,
+            "games_played": 0,
+            "profile_picture": user.providerData[0].photoURL
+          }
+        })
+
+        let currentlyLoggedInPlayer = this.state.currentUser;
+
+
         firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+          console.log('logging idToken', idToken);
           // Send token to your backend via HTTPS
           // ...
-          axios.post('http://192.168.1.34:8080/kickit/games', idToken)
+          axios.post('http://192.168.1.34:8080/kickit/players',
+                      currentlyLoggedInPlayer,
+                      {headers: {'X-login-token': idToken}})
           .then( (response) => {
             console.log('WHAT CAME BACK FROM POSTING THE idTOKEN', response);
           })
@@ -81,15 +111,6 @@ class LoginScreen  extends Component {
     });
   }
 
-
-  async logOutOfFacebookButton() {
-    console.log(auth);
-    auth.signOut().then(function() {
-      console.log('Signed Out');
-      }, function(error) {
-      console.error('Sign Out Error', error);
-      });
-  }
 
   async handleFacebookButton() {
     const { type, token } = await Facebook.logInWithReadPermissionsAsync(FACEBOOK_APP_ID, {
