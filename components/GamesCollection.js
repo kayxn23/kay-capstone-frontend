@@ -75,11 +75,6 @@ class GamesCollection  extends Component {
     )
   }
 
-  renderHeader = () => {
-    return (
-      <SearchBar placeholder="Type here.." lightTheme round  />
-    )
-  }
 
   renderFooter = () => {
     //if (!this.state.loading) return null;
@@ -221,7 +216,6 @@ class GamesCollection  extends Component {
                   )}
                   keyExtractor={(item) => item.game_id}
                   ItemSeparatorComponent={this.renderSeperator}
-                  ListHeaderComponent={this.renderHeader}
                   ListFooterComponent={this.renderFooter}
                 />
             </View>

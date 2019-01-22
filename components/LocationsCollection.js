@@ -290,8 +290,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#fff',
-    color: '#fff',
-    textAlign: 'center',
   },
   closeGameStyle: {
     backgroundColor: '#68a0cf',
@@ -303,8 +301,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#fff',
-    color: '#fff',
-    textAlign: 'center',
   },
   modalStyle: {
     flex: 1,
