@@ -15,12 +15,18 @@ export default class SettingsScreen extends React.Component {
 
   };
 
-  async logOutOfFacebookButton() {
+  constructor(props) {
+    super(props);
+  }
+
+  logOutOfFacebookButton = () => {
     const auth = firebase.auth();
+    const navigate = this.props.navigation.navigate;
 
     console.log(auth);
     auth.signOut().then(function() {
       console.log('Signed Out');
+      navigate('Login');
       }, function(error) {
       console.error('Sign Out Error', error);
       });

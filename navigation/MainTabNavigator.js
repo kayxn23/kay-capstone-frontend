@@ -6,17 +6,11 @@ import TabBarIcon from '../components/TabBarIcon';
 import LocationsScreen from '../screens/LocationsScreen';
 import GamesScreen from '../screens/GamesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import WelcomeScreen from '../screens/WelcomeScreen';
+// import WelcomeScreen from '../screens/WelcomeScreen';
 
-import {TabNavigator} from 'react-navigation';
-
-
+// import {TabNavigator} from 'react-navigation';
 
 
-
-const WelcomeStack = createStackNavigator({
-  Welcome: WelcomeScreen,
-});
 
 
 const LocationsStack = createStackNavigator({

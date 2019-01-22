@@ -32,7 +32,6 @@ class LocationsCollection  extends Component {
       displayModal: false,
       displayModalCreateGame: false,
       selectedLocation: {},
-      organizer: {"player_id": 8},
       displayModalLogin: false,
     }
   }
@@ -73,10 +72,16 @@ class LocationsCollection  extends Component {
   //   //how do i get this to call addCard function that lives in GamesCollection
   // }
 
+  hideModal = () => {
+    this.setState({
+      displayModalCreateGame: false
+    });
+  }
 
   addGame = (newGame) => {
     console.log("what is new game",newGame);
     console.log("what is game_date", newGame.game_date);
+    console.log("MY PROPS NOW", this.props);
     //2019-01-19 10:23:54 -0800
 
     const getFormattedDate = (date) =>
@@ -93,16 +98,15 @@ class LocationsCollection  extends Component {
                           + ' ' + '-0800';
     }
     newGame.game_date = getFormattedDate(newGame.game_date);
+    newGame.organizer = this.props.player;
+    const hideModal = this.hideModal;
+    console.log("will create with", newGame);
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
       axios.post('http://192.168.1.34:8080/kickit/games', newGame, {headers: {
             'X-login-token': idToken
-        }})
-      .then( (response) => {
-
-        this.setState({
-          displayModalCreateGame: false
-        })
+        }}).then( (response) => {
+        hideModal();
       })
       .catch(error => {
         Alert.alert("There was an issue creating this game, please try again.");
@@ -214,7 +218,7 @@ class LocationsCollection  extends Component {
 
             <NewGameForm
               location={this.state.selectedLocation}
-              organizer={this.state.organizer}
+              organizer={this.props.player}
               addGameCallback={this.addGame}
             />
 

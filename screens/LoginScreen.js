@@ -11,6 +11,7 @@ import firebase from 'firebase';
 import axios from 'axios';
 
 import {
+  AsyncStorage,
   View,
   StyleSheet,
   TouchableHighlight,
@@ -87,17 +88,24 @@ class LoginScreen  extends Component {
 
 
 
-        let currentlyLoggedInPlayer = this.state.currentUser;
+        const currentlyLoggedInPlayer = this.state.currentUser;
+        const navigate = this.props.navigation.navigate;
+
+        console.log("loggin this.props", this.props);
 
         firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-          console.log('logging idToken', idToken);
           // Send token to your backend via HTTPS
           // ...
           axios.post('http://192.168.1.34:8080/kickit/players',
                       currentlyLoggedInPlayer,
                       {headers: {'X-login-token': idToken}})
-          .then( (response) => {
-            this.props.currentUserCallback(currentlyLoggedInPlayer);
+          .then( (response) => response.data)
+          .then((data) => {
+            console.log("going to navigate to Main with player:", data);
+
+            AsyncStorage.setItem('player', JSON.stringify(data)).then((r) => {
+               navigate('Main');
+            });
           })
           .catch(error => {
             console.log("ERROR FROM SERVER POSTING new user", error.message);

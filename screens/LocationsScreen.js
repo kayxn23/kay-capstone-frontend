@@ -2,6 +2,7 @@ import React from 'react';
 import LocationsCollection from '../components/LocationsCollection';
 
 import {
+  AsyncStorage,
   Platform,
   StyleSheet,
   Text,
@@ -15,13 +16,25 @@ export default class LocationsScreen extends React.Component {
     header: null,
   };
 
-  render() {
+  constructor(props) {
+    super(props);
 
+    this.state = {};
+    this.fetchPlayer();
+  }
+
+  fetchPlayer = async () => {
+    const player = await AsyncStorage.getItem('player');
+
+    this.setState({player: JSON.parse(player)});
+  }
+
+  render() {
+    console.log("MY STATE LOCATIONS", this.state);
     return (
       <View style={styles.container}>
 
-        < LocationsCollection />
-
+        <LocationsCollection player={this.state.player}/>
       </View>
     );
   }

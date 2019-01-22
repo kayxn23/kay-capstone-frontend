@@ -24,7 +24,6 @@ import { Text,
         title: '',
         description: '',
         location: this.props.location,
-        organizer: this.props.organizer,
         game_date: new Date()
       };
 
@@ -60,13 +59,13 @@ import { Text,
           title: '',
           description: '',
           location: {},
-          organizer: {},
           game_date: new Date()
       });
     }
 
 
     render() {
+      console.log("MY FORM HAS", this.props);
     return (
       <View onSubmit={this.onSubmit}  >
         <View >

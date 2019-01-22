@@ -38,10 +38,12 @@ class GamesCollection  extends Component {
 // at some point once auth is set up pass the player object
   joinGameCallback = (gameId, locationId) => {
     console.log('this is the game id', gameId);
+    console.log("collection props", this.props);
+    const player = this.props.player;
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
     axios.patch('http://192.168.1.34:8080/kickit/games/' + gameId + '/join',
-                TEST_PLAYER,
+                player,
                 {headers: {'X-login-token': idToken}}
                )
         .then((response) => {
@@ -96,14 +98,21 @@ class GamesCollection  extends Component {
     )
   }
 
+   getGamesByLocation = (updatedData) => {
+    this.setState({
+      gamesByLocation: updatedData,
+    });
+  }
+
   getGamesFromServer = (locationId) => {
+    const getGamesByLocation = this.getGamesByLocation
     axios.get('http://192.168.1.34:8080/kickit/games?location_id=' + locationId)
         .then((response) => {
           console.log("logging response.data from get games by loc_id",response.data);
 
-          this.setState({
-            gamesByLocation: response.data,
-          });
+          getGamesByLocation(response.data)
+
+
         })
         .catch((error) => {
           console.log("GET GAME S from server printing error mesg", error);
