@@ -187,21 +187,20 @@ class LocationsCollection  extends Component {
             visible={this.state.displayModal}
         >
         <View style={styles.modalStyle}>
-          <View>
             <View style={{paddingBottom: 40}}>
-              <TouchableHighlight onPress={this.triggerCreateGameFormModal}>
-              <Text style={styles.createGameStyle}>CREATE GAME!</Text>
+              <TouchableHighlight style={styles.createGameStyle} onPress={this.triggerCreateGameFormModal}>
+              <Text style={{ width: '100%', color: 'black',textAlign: 'center',justifyContent: 'flex-start',}}>    CREATE    </Text>
               </TouchableHighlight>
             </View>
 
 
             <View>
-            <TouchableHighlight onPress={this.closeModal}>
-            <Text style={styles.closeGameStyle}> CANCEL </Text>
+            <TouchableHighlight style={styles.closeGameStyle} onPress={this.closeModal}>
+            <Text style={{ width: '100%', color: 'black',textAlign: 'center', justifyContent: 'flex-end',}}>    CANCEL    </Text>
             </TouchableHighlight>
             </View>
-          </View>
-          </View>
+        </View>
+
         </Modal>
       </View>
 
@@ -282,33 +281,37 @@ class LocationsCollection  extends Component {
 
 const styles = StyleSheet.create({
   createGameStyle: {
-    backgroundColor: 'lightgreen',
-    marginRight: 40,
+    backgroundColor: '#FAD961',
+    marginRight: 30,
     marginLeft: 40,
-    marginTop: 10,
+    marginTop: 20,
     paddingTop: 20,
     paddingBottom: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#fff'
+    borderColor: '#fff',
+    color: '#fff',
+    textAlign: 'center',
   },
   closeGameStyle: {
-    backgroundColor: 'pink',
+    backgroundColor: '#68a0cf',
     marginRight: 40,
-    marginLeft: 40,
-    marginTop: 10,
+    marginLeft: 30,
+    marginTop: 20,
     paddingTop: 20,
     paddingBottom: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#fff'
+    borderColor: '#fff',
+    color: '#fff',
+    textAlign: 'center',
   },
   modalStyle: {
-    marginBottom: 50,
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch',
+    marginBottom: 10,
     margin: 0,
     borderRadius: 4,
     height: 100,

@@ -29,15 +29,7 @@ import { Text,
 
       this.setDate = this.setDate.bind(this);
     }
-// "yyyy-MM-dd HH:mm:ss Z"
-//2019-01-16T09:05:41.679Z
-//2019-01-19 10:23:54 -0800
-  //const newDate = new Date(datetime/the date coming back)
-  // let newDate1 = moment(newDate).format('yyyy-MM-dd HH:mm:ss Z');
-  // console.log(newDate1);
 
-
-//must set date object to setDate :)
 
     setDate(newDate) {
       this.setState({game_date: newDate})
@@ -107,7 +99,7 @@ import { Text,
 
 
   const styles = StyleSheet.create({
-    buttonstyle: {
+  buttonstyle: {
     marginRight: 40,
     marginLeft: 40,
     marginTop: 100,
