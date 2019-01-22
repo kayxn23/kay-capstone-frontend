@@ -89,6 +89,7 @@ class LoginScreen  extends Component {
 
 
         const currentlyLoggedInPlayer = this.state.currentUser;
+        console.log("logging currently logged in player",currentlyLoggedInPlayer);
         const navigate = this.props.navigation.navigate;
 
         console.log("loggin this.props", this.props);

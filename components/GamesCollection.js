@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import axios from 'axios';
-import { FlatList, ActivityIndicator, Button} from 'react-native';
+import { FlatList, ActivityIndicator, Button, Alert} from 'react-native';
 import { ListItem, SearchBar} from 'react-native-elements';
 import firebase from 'firebase';
 
@@ -31,8 +31,15 @@ class GamesCollection  extends Component {
       error: false,
       games: [],
       gamesByLocation: [],
-      displayModalGamesList: false
+      displayModalGamesList: false,
+      joinButtonStatus: false
     }
+  }
+
+  disableJoinGameButton = () => {
+    this.setState({
+      joinButtonStatus: true
+    })
   }
 
 // at some point once auth is set up pass the player object
@@ -40,6 +47,7 @@ class GamesCollection  extends Component {
     console.log('this is the game id', gameId);
     console.log("collection props", this.props);
     const player = this.props.player;
+    const disableJoinGameButton = this.disableJoinGameButton
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
     axios.patch('http://192.168.1.34:8080/kickit/games/' + gameId + '/join',
@@ -49,14 +57,18 @@ class GamesCollection  extends Component {
         .then((response) => {
           console.log("what is? logging joinGameCallback response.data",response.data);
 
+          disableJoinGameButton()
+
           //create function here that calls games by location function
           this.getGamesFromServer(locationId);
         })
         .catch((error) => {
           console.log("printing error mesg", error);
-          this.setState({
-            error: error.message,
-          })
+          if(error){
+            Alert.alert("you have already joined this game.");
+          } else {
+            Alert.alert("successfully joined! ");
+          }
         });
       });
   }
@@ -207,8 +219,9 @@ class GamesCollection  extends Component {
                       title={item.title + " (" + item.players.length + " players joined)"}
                       subtitle={item.description + "Time:" + item.game_date}
                       leftIcon={{name: 'event'}}
-                      rightIcon={<Button title='join'
+                      rightIcon={<Button title='JOIN'
                                           color='orange'
+                                          disabled={this.state.joinButtonStatus}
                                           onPress={() => this.joinGameCallback(item.game_id,
                                                                                item.location.id
                                                                                )}/>}

@@ -6,7 +6,8 @@ import {
   View,
   StyleSheet,
   TouchableHighlight,
-  Text
+  Text,
+  AsyncStorage
   } from 'react-native'
 
 export default class SettingsScreen extends React.Component {
@@ -17,6 +18,17 @@ export default class SettingsScreen extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      player: {}
+    };
+    this.fetchPlayer();
+  }
+
+  fetchPlayer = async () => {
+    const player = await AsyncStorage.getItem('player');
+
+    this.setState({player: JSON.parse(player)});
   }
 
   logOutOfFacebookButton = () => {
@@ -34,11 +46,16 @@ export default class SettingsScreen extends React.Component {
 
 
   render() {
+    console.log("MY STATE GAMES FROM SETTINGS SCREEn", this.state);
+
     /* Go ahead and delete ExpoConfigView and replace it with your
      * content, we just wanted to give you a quick view of your config */
     return (
 
       <View style={styles.container}>
+          <Text>
+            {this.state.player.first_name}
+          </Text>
           <TouchableHighlight
             style={styles.facebookButton}
             name="Facebook"
