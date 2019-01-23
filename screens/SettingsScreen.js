@@ -15,7 +15,12 @@ import {
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'My Account',
-
+    headerStyle: {
+      backgroundColor: '#2089dc',
+    },
+    headerTitleStyle: {
+        color: 'white',
+      },
   };
 
   constructor(props) {

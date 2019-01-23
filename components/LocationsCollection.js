@@ -187,7 +187,7 @@ class LocationsCollection  extends Component {
         />
         <View style={{flex: 1, justifyContent:"center"}}>
           <TouchableHighlight style={styles.createGameStyle} onPress={this.triggerCreateGameFormModal}>
-          <Text style={{ width: '100%', color: 'black',textAlign: 'center',justifyContent: 'flex-start',}}>    CREATE    </Text>
+          <Text style={{ width: '100%', color: 'black',textAlign: 'center',justifyContent: 'flex-start',}}>START A NEW GAME</Text>
           </TouchableHighlight>
         </View>
 

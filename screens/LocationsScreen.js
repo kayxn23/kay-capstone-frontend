@@ -14,6 +14,12 @@ import { MonoText } from '../components/StyledText';
 export default class LocationsScreen extends React.Component {
   static navigationOptions = {
     title: "Locations",
+    headerStyle: {
+      backgroundColor: '#2089dc',
+    },
+    headerTitleStyle: {
+        color: 'white',
+      },
   };
 
   constructor(props) {

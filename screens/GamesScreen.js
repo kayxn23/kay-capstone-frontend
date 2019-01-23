@@ -7,6 +7,12 @@ import GamesCollection from '../components/GamesCollection';
 export default class GamesScreen extends React.Component {
   static navigationOptions = {
     title: "Games",
+    headerStyle: {
+      backgroundColor: '#2089dc',
+    },
+    headerTitleStyle: {
+        color: 'white',
+      },
   };
 
   constructor(props) {
