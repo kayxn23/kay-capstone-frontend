@@ -55,27 +55,13 @@ class LoginScreen  extends Component {
     super(props);
 
     this.state = {
-      token: '',
       currentUser: {},
       logInStatus: false,
-      errorMessage: 'none'
+      errorMessage: 'none',
+      loadingUserState: true
     }
 
   }
-
-
-
-
-
-  async logOutOfFacebookButton() {
-    console.log(auth);
-    auth.signOut().then(function() {
-      console.log('Signed Out');
-      }, function(error) {
-      console.error('Sign Out Error', error);
-      });
-  }
-
 
    componentDidMount() {
     auth.onAuthStateChanged(user => {
@@ -91,8 +77,6 @@ class LoginScreen  extends Component {
             "profile_picture": user.providerData[0].photoURL
           }
         })
-
-
 
         const currentlyLoggedInPlayer = this.state.currentUser;
         console.log("logging currently logged in player",currentlyLoggedInPlayer);
@@ -125,9 +109,9 @@ class LoginScreen  extends Component {
           console.log('PRINTING ERROR FROM TRYING TO SEND TOKEN TO SERVER', error);
         });
 
-        this.setState({ logInStatus: true });
+        this.setState({ logInStatus: true, loadingUserState: false });
       } else {
-        this.setState({ logInStatus: false });
+        this.setState({ logInStatus: false, loadingUserState: false });
       }
     });
   }
@@ -149,23 +133,12 @@ class LoginScreen  extends Component {
 
   render() {
     console.log('current user', this.state.currentUser);
-    if(!this.state.currentUser === {}) {
-      return (
-        <View style={styles.container}>
-            <TouchableHighlight
-              style={styles.facebookButton}
-              name="Facebook"
-              underlayColor={styles.facebookButton.backgroundColor}
-              onPress={this.logOutOfFacebookButton}
-            >
-              <Text style={styles.facebookButtonText}>Log out</Text>
-            </TouchableHighlight>
-        </View>
-      );
-    } else {
+
       return (
         <ImageBackground source={require('../assets/images/splash.png')} style={styles.container}>
-              <TouchableHighlight
+
+             { !this.state.loadingUserState && !this.state.logInStatus &&
+              (<TouchableHighlight
                 style={styles.facebookButton}
                 name="Facebook"
                 underlayColor={styles.facebookButton.backgroundColor}
@@ -173,9 +146,11 @@ class LoginScreen  extends Component {
               >
                 <Text style={styles.facebookButtonText}>Log in with Facebook</Text>
               </TouchableHighlight>
+            )
+            }
         </ImageBackground>
 
-    )}
+    );
   }
 }
 
