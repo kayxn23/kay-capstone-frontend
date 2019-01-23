@@ -91,7 +91,7 @@ class GamesCollection  extends Component {
       <Header
         leftComponent={{ icon: 'menu', color: '#fff' }}
         centerComponent={{ text: 'Games', style: { color: '#fff' } }}
-        rightComponent={{ icon: 'home', color: '#fff' }}
+        rightComponent={{ icon: 'close', color: '#fff', onPress:() => this.closeModal()}}
       />
     )
   }
@@ -102,13 +102,10 @@ class GamesCollection  extends Component {
     return (
       <View
         style={{
-               borderTopWidth: 10,
+               ppaddingVertical: 20,
+               borderTopWidth: 1,
                borderTopColor: '#CED0CE'}}>
-        {/*/<ActivityIndicator animating size="large"/>*/}
-
-        <TouchableHighlight onPress={this.closeModal}>
-        <Text style={{backgroundColor: 'pink', justifyContent: 'center'}}> CLOSE MODAL </Text>
-        </TouchableHighlight>
+        <ActivityIndicator animating size="large"/>
 
       </View>
     )
