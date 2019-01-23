@@ -58,12 +58,18 @@ import {Header} from 'react-native-elements'
     }
 
 
+
+
     render() {
       console.log("MY FORM HAS", this.props);
     return (
-      <ScrollView>
       <View onSubmit={this.onSubmit}  >
-        <View >
+        <Header
+          leftComponent={{ icon: 'menu', color: '#fff' }}
+          centerComponent={{ text: 'New Game', style: { color: '#fff' } }}
+          rightComponent={{ icon: 'close', color: '#fff', onPress:() => this.props.closeModal()}}
+        />
+        <View style={{padding: 20}}>
           <TextInput
             placeholder="Title"
             onChangeText={(title) => this.setState({title})}
@@ -85,10 +91,9 @@ import {Header} from 'react-native-elements'
           <TouchableHighlight style={styles.buttonstyle} onPress={this.onSubmit}>
           <Text style={styles.buttontextstyle}> CREATE GAME </Text>
           </TouchableHighlight>
-
+          </View>
         </View>
-      </View>
-      </ScrollView>
+
     );
   }
 
@@ -121,7 +126,6 @@ import {Header} from 'react-native-elements'
     container: {
       justifyContent: 'center',
       marginTop: 50,
-      padding: 20,
       backgroundColor: '#ffffff',
     },
   });

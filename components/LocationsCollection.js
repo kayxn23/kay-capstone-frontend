@@ -46,7 +46,16 @@ class LocationsCollection  extends Component {
   }
 
   closeModal = () => {
-    this.setState({displayModal:false});
+    this.setState({
+      displayModal:false
+    });
+  }
+
+  closeAllModals = () => {
+    this.setState({
+      displayModal:false,
+      displayModalCreateGame: false
+    });
   }
 
   triggerCreateGameFormModal = () => {
@@ -164,9 +173,9 @@ class LocationsCollection  extends Component {
         />
       ))}
 
-      <View >
+      <View>
         <Modal
-            transparent={true}
+            transparent={false}
             animationType="fade"
             visible={this.state.displayModal}
         >
@@ -195,24 +204,14 @@ class LocationsCollection  extends Component {
             animationType="slide"
             visible={this.state.displayModalCreateGame}
         >
-        <View style={styles.modalStyle}>
-          <View>
-            <View>
-
+        <View>
             <NewGameForm
               location={this.state.selectedLocation}
               organizer={this.props.player}
               addGameCallback={this.addGame}
+              closeModal={this.closeAllModals}
             />
-
-            <TouchableHighlight style={styles.buttonstyle} onPress={this.closeCreateGameFormModal}>
-            <Text style={styles.buttontextstyle}> CANCEL </Text>
-            </TouchableHighlight>
-
-
-            </View>
-          </View>
-          </View>
+        </View>
         </Modal>
       </View>
 
@@ -292,10 +291,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'stretch',
     marginBottom: 10,
-    margin: 0,
-    borderRadius: 4,
-    height: 100,
-    padding: 22
   },
   post: {
     flexDirection: 'row',
