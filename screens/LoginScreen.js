@@ -211,7 +211,6 @@ const styles = StyleSheet.create({
 });
 
 LoginScreen.propTypes = {
-  currentUserCallback: PropTypes.func.isRequired,
 };
 
 

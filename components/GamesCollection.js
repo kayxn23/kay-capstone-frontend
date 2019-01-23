@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import axios from 'axios';
 import { FlatList, ActivityIndicator, Button, Alert} from 'react-native';
-import { ListItem, SearchBar} from 'react-native-elements';
+import { ListItem} from 'react-native-elements';
 import firebase from 'firebase';
 
 import {
@@ -12,14 +12,6 @@ import {
   Text,
   StyleSheet } from 'react-native'
 
-// const TEST_PLAYER =  {
-//             "player_id": 22,
-//             "first_name": "Mia",
-//             "user_name": "miaham",
-//             "games_played": 5,
-//             "user_id": "12ef456gh",
-//             "profile_picture": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-//         }
 
 class GamesCollection  extends Component {
 
