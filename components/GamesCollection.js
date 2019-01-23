@@ -32,7 +32,8 @@ class GamesCollection  extends Component {
       games: [],
       gamesByLocation: [],
       displayModalGamesList: false,
-      joinButtonStatus: false
+      joinButtonStatus: false,
+      disabledHash : {}
     }
   }
 
@@ -49,6 +50,10 @@ class GamesCollection  extends Component {
     const player = this.props.player;
     const disableJoinGameButton = this.disableJoinGameButton
     const getGamesFromServer = this.getGamesFromServer
+    this.setState((props, prevState) => {
+      return {disabledHash : {...prevState.disabledHash, [gameId]: true}}
+    })
+    console.log("logging this.state.disabledhash",this.state.disabledHash);
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
     axios.patch('http://172.24.25.138:8080/kickit/games/' + gameId + '/join',
@@ -222,7 +227,7 @@ class GamesCollection  extends Component {
                       leftIcon={{name: 'event'}}
                       rightIcon={<Button title='JOIN'
                                           color='orange'
-                                          disabled={this.state.joinButtonStatus}
+                                          disabled={item.game_id in this.state.disabledHash}
                                           onPress={() => this.joinGameCallback(item.game_id,
                                                                                item.location.id
                                                                                )}/>}
