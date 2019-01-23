@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Slides from '../components/Slides';
 import PropTypes from 'prop-types';
+import Splash from '../assets/images/splash.png';
 
 import { AppLoading } from 'expo';
 // import firebase, { auth, provider } from '../firebase.js';
@@ -11,6 +12,7 @@ import firebase from 'firebase';
 import axios from 'axios';
 
 import {
+  ImageBackground,
   AsyncStorage,
   View,
   StyleSheet,
@@ -51,7 +53,7 @@ class LoginScreen  extends Component {
     this.state = {
       token: '',
       currentUser: {},
-      logInStatus: 'signed out',
+      logInStatus: false,
       errorMessage: 'none'
     }
 
@@ -119,9 +121,9 @@ class LoginScreen  extends Component {
           console.log('PRINTING ERROR FROM TRYING TO SEND TOKEN TO SERVER', error);
         });
 
-        this.setState({ logInStatus: 'We are authenticated now!' });
+        this.setState({ logInStatus: true });
       } else {
-        this.setState({ logInStatus: 'You are currently logged out.' });
+        this.setState({ logInStatus: false });
       }
     });
   }
@@ -142,11 +144,8 @@ class LoginScreen  extends Component {
   }
 
   render() {
-    if (this.state.currentUser === {}) {
-      return <AppLoading/>
-    }
-
-    if(this.state.logInStatus === "We are authenticated now!") {
+    console.log('current user', this.state.currentUser);
+    if(!this.state.currentUser === {}) {
       return (
         <View style={styles.container}>
             <TouchableHighlight
@@ -159,13 +158,9 @@ class LoginScreen  extends Component {
             </TouchableHighlight>
         </View>
       );
-    }
-
-
-    return (
-
-        <View style={styles.container}>
-
+    } else {
+      return (
+        <ImageBackground source={require('../assets/images/splash.png')} style={styles.container}>
               <TouchableHighlight
                 style={styles.facebookButton}
                 name="Facebook"
@@ -174,20 +169,17 @@ class LoginScreen  extends Component {
               >
                 <Text style={styles.facebookButtonText}>Log in with Facebook</Text>
               </TouchableHighlight>
+        </ImageBackground>
 
-              <View style={styles.space} />
-              <Text>Logged In Status: {this.state.logInStatus}</Text>
-              <View style={styles.space} />
-              <Text> Log In Error Messages: {this.state.errorMessage}</Text>
-
-        </View>
-    );
+    )}
   }
 }
 
 
 const styles = StyleSheet.create({
   container: {
+    width: null,
+    height: null,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -202,12 +194,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   facebookButton: {
-  width: 375 * 0.75,
-  height: 48,
-  borderRadius: 50,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#3B5998'
+    marginTop: 400,
+    width: 375 * 0.75,
+    height: 48,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#3B5998'
   },
   facebookButtonText: {
     color: '#fff'
