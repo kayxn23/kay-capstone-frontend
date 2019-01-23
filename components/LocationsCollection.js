@@ -67,7 +67,6 @@ class LocationsCollection  extends Component {
     this.setState({displayModalCreateGame:false});
   }
 
-
   hideModal = () => {
     this.setState({
       displayModalCreateGame: false
@@ -75,10 +74,6 @@ class LocationsCollection  extends Component {
   }
 
   addGame = (newGame) => {
-    console.log("what is new game",newGame);
-    console.log("what is game_date", newGame.game_date);
-    console.log("MY PROPS NOW", this.props);
-
     const getFormattedDate = (date) =>
     {
       const newGameDate = new Date(date);
@@ -95,7 +90,6 @@ class LocationsCollection  extends Component {
     newGame.game_date = getFormattedDate(newGame.game_date);
     newGame.organizer = this.props.player;
     const hideModal = this.hideModal;
-    console.log("will create with", newGame);
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
       axios.post('http://192.168.1.34:8080/kickit/games', newGame, {headers: {
@@ -181,13 +175,12 @@ class LocationsCollection  extends Component {
             visible={this.state.displayModal}
         >
         <Header
-          leftComponent={{ icon: 'menu', color: '#fff' }}
           centerComponent={{ text: 'Create a game!', style: { color: '#fff' } }}
           rightComponent={{ icon: 'close', color: '#fff', onPress:() => this.closeModal()}}
         />
         <View style={{flex: 1, justifyContent:"center"}}>
           <TouchableHighlight style={styles.createGameStyle} onPress={this.triggerCreateGameFormModal}>
-          <Text style={{ width: '100%', color: 'black',textAlign: 'center',justifyContent: 'flex-start',}}>START A NEW GAME</Text>
+          <Text style={{ width: '100%', color: 'white',textAlign: 'center',justifyContent: 'flex-start',}}>START A NEW GAME</Text>
           </TouchableHighlight>
         </View>
 
@@ -261,7 +254,7 @@ class LocationsCollection  extends Component {
 
 const styles = StyleSheet.create({
   createGameStyle: {
-    backgroundColor: '#FAD961',
+    backgroundColor: '#68a0cf',
     marginRight: 30,
     marginLeft: 40,
     marginTop: 20,

@@ -6,7 +6,6 @@ import { Text,
   View,
   StyleSheet,
   DatePickerIOS,
-  ScrollView
   } from 'react-native';
 import {Header} from 'react-native-elements'
 
@@ -65,7 +64,6 @@ import {Header} from 'react-native-elements'
     return (
       <View onSubmit={this.onSubmit}  >
         <Header
-          leftComponent={{ icon: 'menu', color: '#fff' }}
           centerComponent={{ text: 'New Game', style: { color: '#fff' } }}
           rightComponent={{ icon: 'close', color: '#fff', onPress:() => this.props.closeModal()}}
         />
@@ -82,11 +80,13 @@ import {Header} from 'react-native-elements'
             value={this.state.description}
             style={{ height: 100, width: 300 }}
           />
+
           <DatePickerIOS
             date={this.state.game_date}
             onDateChange={this.setDate}
             style={{ height: 150, width: 300 }}
           />
+
 
           <TouchableHighlight style={styles.buttonstyle} onPress={this.onSubmit}>
           <Text style={styles.buttontextstyle}> CREATE GAME </Text>

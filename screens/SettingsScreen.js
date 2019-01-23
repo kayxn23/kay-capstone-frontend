@@ -61,7 +61,7 @@ export default class SettingsScreen extends React.Component {
       <View >
           <View style={styles.header}></View>
           <Image style={styles.avatar}
-                 source={{uri: 'http://2.bp.blogspot.com/-bFNHNHQEePw/T_fpm_1j7eI/AAAAAAAAAKw/_4lrwxzOSyk/s1600/Mia+Hamm+.jpg'}}/>
+                 source={{uri: 'https://avatars2.githubusercontent.com/u/30675614?s=460&v=4'}}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
               <Text style={styles.name}>{this.state.player.first_name}</Text>
@@ -69,7 +69,7 @@ export default class SettingsScreen extends React.Component {
               <Text style={styles.description}>Games played: 7 </Text>
 
               <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Edit</Text>
+                <Text style={styles.facebookButtonText}>Edit</Text>
               </TouchableOpacity>
               <TouchableHighlight
                 style={styles.buttonContainer}
@@ -89,7 +89,7 @@ export default class SettingsScreen extends React.Component {
 
 const styles = StyleSheet.create({
   header:{
-    backgroundColor: "#FAD961",
+    backgroundColor: "#B1EDE8",
     height:200,
   },
   avatar: {
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     width:250,
     borderRadius:30,
     color: "#fff",
-    backgroundColor: "#00BFFF",
+    backgroundColor: "#68a0cf",
   },
   container: {
     flex: 1,
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   borderRadius: 50,
   justifyContent: 'center',
   alignItems: 'center',
-  backgroundColor: '#FAD961'
+  backgroundColor: '#68a0cf'
   },
   facebookButtonText: {
     color: '#fff'

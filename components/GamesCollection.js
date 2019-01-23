@@ -8,7 +8,6 @@ import {Header} from 'react-native-elements'
 
 import {
   Modal,
-  TouchableHighlight,
   View,
   Text,
   StyleSheet } from 'react-native'
@@ -89,27 +88,13 @@ class GamesCollection  extends Component {
   renderHeader = () => {
     return (
       <Header
-        leftComponent={{ icon: 'menu', color: '#fff' }}
-        centerComponent={{ text: 'Games', style: { color: '#fff' } }}
+        leftComponent={{ icon: 'event', color: '#fff' }}
+        centerComponent={{ text: 'Games at this Location', style: { color: '#fff' } }}
         rightComponent={{ icon: 'close', color: '#fff', onPress:() => this.closeModal()}}
       />
     )
   }
 
-
-  renderFooter = () => {
-    //if (!this.state.loading) return null;
-    return (
-      <View
-        style={{
-               ppaddingVertical: 20,
-               borderTopWidth: 1,
-               borderTopColor: '#CED0CE'}}>
-        <ActivityIndicator animating size="large"/>
-
-      </View>
-    )
-  }
 
    getGamesByLocation = (updatedData) => {
     this.setState({
@@ -219,12 +204,13 @@ class GamesCollection  extends Component {
                   data={this.state.gamesByLocation}
                   renderItem={({item}) => (
                     <ListItem
-                      title={item.title + " (" + item.players.length + " players joined)"}
-                      subtitle={item.description + "Time:" + item.game_date}
-                      leftIcon={{name: 'event'}}
-                      rightIcon={<Button  style={{fontSize: 20, color: 'green'}}
+                      title={item.title + item.description}
+                      titleStyle={{fontWeight: 'bold'}}
+                      subtitle={item.game_date.slice(0, -6)}
+                      rightSubtitle={item.players.length + " players"}
+                      rightIcon={<Button
                                           title='JOIN'
-                                          color='orange'
+                                          color='#0C8346'
                                           disabled={item.game_id in this.state.disabledHash}
                                           onPress={() => this.joinGameCallback(item.game_id,
                                                                                item.location.id
@@ -233,7 +219,6 @@ class GamesCollection  extends Component {
                   )}
                   keyExtractor={(item) => item.game_id}
                   ItemSeparatorComponent={this.renderSeperator}
-                  ListFooterComponent={this.renderFooter}
                   ListHeaderComponent={this.renderHeader}
                 />
             </View>
