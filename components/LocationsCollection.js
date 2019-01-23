@@ -92,7 +92,7 @@ class LocationsCollection  extends Component {
     const hideModal = this.hideModal;
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-      axios.post('http://192.168.1.34:8080/kickit/games', newGame, {headers: {
+      axios.post('https://seattle-soccer-pickup.herokuapp.com/kickit/games', newGame, {headers: {
             'X-login-token': idToken
         }}).then( (response) => {
         hideModal();
@@ -112,7 +112,7 @@ class LocationsCollection  extends Component {
     try {
       ///school 192.168.1.34:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://192.168.1.34:8080/kickit/locations',{
+      let response = await fetch('https://seattle-soccer-pickup.herokuapp.com/kickit/locations',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',

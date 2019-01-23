@@ -48,7 +48,7 @@ class GamesCollection  extends Component {
     console.log("logging this.state.disabledhash",this.state.disabledHash);
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-    axios.patch('http://192.168.1.34:8080/kickit/games/' + gameId + '/join',
+    axios.patch('https://seattle-soccer-pickup.herokuapp.com/kickit/games/' + gameId + '/join',
                 player,
                 {headers: {'X-login-token': idToken}}
                )
@@ -104,7 +104,7 @@ class GamesCollection  extends Component {
 
   getGamesFromServer = (locationId) => {
     const getGamesByLocation = this.getGamesByLocation
-    axios.get('http://192.168.1.34:8080/kickit/games?location_id=' + locationId)
+    axios.get('https://seattle-soccer-pickup.herokuapp.com/kickit/games?location_id=' + locationId)
         .then((response) => {
           console.log("logging response.data from get games by loc_id",response.data);
 
@@ -134,7 +134,7 @@ class GamesCollection  extends Component {
       ///school 192.168.1.34:8080
       //home 192.168.0.12:8080
       //cody 192.168.1.34
-      let response = await fetch('http://192.168.1.34:8080/kickit/games',{
+      let response = await fetch('https://seattle-soccer-pickup.herokuapp.com/kickit/games',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',

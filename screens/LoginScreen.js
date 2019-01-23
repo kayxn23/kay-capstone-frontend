@@ -87,7 +87,7 @@ class LoginScreen  extends Component {
         firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
           // Send token to your backend via HTTPS
           // ...
-          axios.post('http://192.168.1.34:8080/kickit/players',
+          axios.post('https://seattle-soccer-pickup.herokuapp.com/kickit/players',
                       currentlyLoggedInPlayer,
                       {headers: {'X-login-token': idToken}})
           .then( (response) => response.data)
@@ -179,10 +179,10 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2089dc'
+    backgroundColor: '#fff'
   },
   facebookButtonText: {
-    color: '#fff'
+    color: 'black'
   },
   space: {
     height: 17
