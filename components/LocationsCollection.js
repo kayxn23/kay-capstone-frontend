@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import NewGameForm from './NewGameForm';
 import firebase from 'firebase';
+import {Header} from 'react-native-elements'
 
 
 import axios from 'axios';
@@ -179,19 +180,15 @@ class LocationsCollection  extends Component {
             animationType="fade"
             visible={this.state.displayModal}
         >
-        <View style={styles.modalStyle}>
-            <View style={{paddingBottom: 40}}>
-              <TouchableHighlight style={styles.createGameStyle} onPress={this.triggerCreateGameFormModal}>
-              <Text style={{ width: '100%', color: 'black',textAlign: 'center',justifyContent: 'flex-start',}}>    CREATE    </Text>
-              </TouchableHighlight>
-            </View>
-
-
-            <View>
-            <TouchableHighlight style={styles.closeGameStyle} onPress={this.closeModal}>
-            <Text style={{ width: '100%', color: 'black',textAlign: 'center', justifyContent: 'flex-end',}}>    CANCEL    </Text>
-            </TouchableHighlight>
-            </View>
+        <Header
+          leftComponent={{ icon: 'menu', color: '#fff' }}
+          centerComponent={{ text: 'Create a game!', style: { color: '#fff' } }}
+          rightComponent={{ icon: 'close', color: '#fff', onPress:() => this.closeModal()}}
+        />
+        <View style={{flex: 1, justifyContent:"center"}}>
+          <TouchableHighlight style={styles.createGameStyle} onPress={this.triggerCreateGameFormModal}>
+          <Text style={{ width: '100%', color: 'black',textAlign: 'center',justifyContent: 'flex-start',}}>    CREATE    </Text>
+          </TouchableHighlight>
         </View>
 
         </Modal>
