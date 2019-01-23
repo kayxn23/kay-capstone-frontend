@@ -103,7 +103,7 @@ class LocationsCollection  extends Component {
     console.log("will create with", newGame);
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-      axios.post('http://192.168.1.34:8080/kickit/games', newGame, {headers: {
+      axios.post('http://172.24.25.138:8080/kickit/games', newGame, {headers: {
             'X-login-token': idToken
         }}).then( (response) => {
         hideModal();
@@ -124,7 +124,7 @@ class LocationsCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://192.168.1.34:8080/kickit/locations',{
+      let response = await fetch('http://172.24.25.138:8080/kickit/locations',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',

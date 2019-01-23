@@ -99,7 +99,7 @@ class LoginScreen  extends Component {
         firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
           // Send token to your backend via HTTPS
           // ...
-          axios.post('http://192.168.1.34:8080/kickit/players',
+          axios.post('http://172.24.25.138:8080/kickit/players',
                       currentlyLoggedInPlayer,
                       {headers: {'X-login-token': idToken}})
           .then( (response) => response.data)

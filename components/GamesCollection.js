@@ -48,9 +48,10 @@ class GamesCollection  extends Component {
     console.log("collection props", this.props);
     const player = this.props.player;
     const disableJoinGameButton = this.disableJoinGameButton
+    const getGamesFromServer = this.getGamesFromServer
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-    axios.patch('http://192.168.1.34:8080/kickit/games/' + gameId + '/join',
+    axios.patch('http://172.24.25.138:8080/kickit/games/' + gameId + '/join',
                 player,
                 {headers: {'X-login-token': idToken}}
                )
@@ -60,7 +61,7 @@ class GamesCollection  extends Component {
           disableJoinGameButton()
 
           //create function here that calls games by location function
-          this.getGamesFromServer(locationId);
+          getGamesFromServer(locationId);
         })
         .catch((error) => {
           console.log("printing error mesg", error);
@@ -113,7 +114,7 @@ class GamesCollection  extends Component {
 
   getGamesFromServer = (locationId) => {
     const getGamesByLocation = this.getGamesByLocation
-    axios.get('http://192.168.1.34:8080/kickit/games?location_id=' + locationId)
+    axios.get('http://172.24.25.138:8080/kickit/games?location_id=' + locationId)
         .then((response) => {
           console.log("logging response.data from get games by loc_id",response.data);
 
@@ -146,8 +147,8 @@ class GamesCollection  extends Component {
     try {
       ///school 172.24.25.138:8080
       //home 192.168.0.12:8080
-      //cody 192.168.1.34
-      let response = await fetch('http://192.168.1.34:8080/kickit/games',{
+      //cody 172.24.25.138
+      let response = await fetch('http://172.24.25.138:8080/kickit/games',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
