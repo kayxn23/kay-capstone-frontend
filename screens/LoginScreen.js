@@ -47,6 +47,10 @@ const FACEBOOK_APP_ID = '227546764797077';
 
 
 class LoginScreen  extends Component {
+  static navigationOptions = {
+    header: null
+  };
+
   constructor(props){
     super(props);
 
@@ -183,14 +187,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#2089dc',
   },
   input: {
     width: 200,
     height: 44,
     padding: 10,
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: 'white',
     marginBottom: 10,
   },
   facebookButton: {
@@ -200,7 +204,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#3B5998'
+    backgroundColor: '#2089dc'
   },
   facebookButtonText: {
     color: '#fff'
