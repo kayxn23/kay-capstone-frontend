@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FlatList, ActivityIndicator, Button, Alert} from 'react-native';
 import { ListItem} from 'react-native-elements';
 import firebase from 'firebase';
+import {Header} from 'react-native-elements'
 
 import {
   Modal,
@@ -48,7 +49,7 @@ class GamesCollection  extends Component {
     console.log("logging this.state.disabledhash",this.state.disabledHash);
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-    axios.patch('http://172.24.25.138:8080/kickit/games/' + gameId + '/join',
+    axios.patch('http://192.168.1.34:8080/kickit/games/' + gameId + '/join',
                 player,
                 {headers: {'X-login-token': idToken}}
                )
@@ -85,6 +86,16 @@ class GamesCollection  extends Component {
     )
   }
 
+  renderHeader = () => {
+    return (
+      <Header
+        leftComponent={{ icon: 'menu', color: '#fff' }}
+        centerComponent={{ text: 'Games', style: { color: '#fff' } }}
+        rightComponent={{ icon: 'home', color: '#fff' }}
+      />
+    )
+  }
+
 
   renderFooter = () => {
     //if (!this.state.loading) return null;
@@ -111,16 +122,14 @@ class GamesCollection  extends Component {
 
   getGamesFromServer = (locationId) => {
     const getGamesByLocation = this.getGamesByLocation
-    axios.get('http://172.24.25.138:8080/kickit/games?location_id=' + locationId)
+    axios.get('http://192.168.1.34:8080/kickit/games?location_id=' + locationId)
         .then((response) => {
           console.log("logging response.data from get games by loc_id",response.data);
 
           getGamesByLocation(response.data)
 
-
         })
         .catch((error) => {
-          console.log("GET GAME S from server printing error mesg", error);
           this.setState({
             error: error.message,
           })
@@ -128,10 +137,8 @@ class GamesCollection  extends Component {
   }
 
   triggerModal(locationId) {
-    this.setState({displayModalGamesList: true});
-
     this.getGamesFromServer(locationId);
-
+    this.setState({displayModalGamesList: true});
   }
 
   closeModal = () => {
@@ -142,10 +149,10 @@ class GamesCollection  extends Component {
 
   componentDidMount = async () => {
     try {
-      ///school 172.24.25.138:8080
+      ///school 192.168.1.34:8080
       //home 192.168.0.12:8080
-      //cody 172.24.25.138
-      let response = await fetch('http://172.24.25.138:8080/kickit/games',{
+      //cody 192.168.1.34
+      let response = await fetch('http://192.168.1.34:8080/kickit/games',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
@@ -181,6 +188,7 @@ class GamesCollection  extends Component {
       )
     }
 
+    console.log("logging this.sate.getGamesByLocation in games collection", this.state.gamesByLocation);
 
     return (
       <MapView
@@ -217,7 +225,8 @@ class GamesCollection  extends Component {
                       title={item.title + " (" + item.players.length + " players joined)"}
                       subtitle={item.description + "Time:" + item.game_date}
                       leftIcon={{name: 'event'}}
-                      rightIcon={<Button title='JOIN'
+                      rightIcon={<Button  style={{fontSize: 20, color: 'green'}}
+                                          title='JOIN'
                                           color='orange'
                                           disabled={item.game_id in this.state.disabledHash}
                                           onPress={() => this.joinGameCallback(item.game_id,
@@ -228,6 +237,7 @@ class GamesCollection  extends Component {
                   keyExtractor={(item) => item.game_id}
                   ItemSeparatorComponent={this.renderSeperator}
                   ListFooterComponent={this.renderFooter}
+                  ListHeaderComponent={this.renderHeader}
                 />
             </View>
             </View>
@@ -240,8 +250,14 @@ class GamesCollection  extends Component {
 }
 
 const styles = StyleSheet.create({
-  gameListStyle: {
-
+  buttonStyle:{
+    marginTop: 400,
+    width: 375 * 0.75,
+    height: 48,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#3B5998'
   },
   modalStyle: {
     flex: 1,

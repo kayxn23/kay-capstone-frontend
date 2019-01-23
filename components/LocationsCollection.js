@@ -38,13 +38,6 @@ class LocationsCollection  extends Component {
 
   onLogin = () => {
     this.setState({displayModalLogin: false})
-
-    // check if úsername exists in the database
-
-    // if yes, pull the users profile from the DB and set the session data for the app with that users info
-    // global.username = 'Kay1Soccer'
-    // global.firstname = 'Kay'
-    // if no, create a new entry in the database for that user and set the session data to their profile
   }
 
   triggerModal = (location) => {
@@ -65,13 +58,6 @@ class LocationsCollection  extends Component {
   }
 
 
-//2019-01-19 10:23:54 -0800
-//2019-01-16 18:52:28 Z
-//2019-01-16T18:54:20Z
-  // addGameCallbacktoGamesCollection = (newGame) => {
-  //   //how do i get this to call addCard function that lives in GamesCollection
-  // }
-
   hideModal = () => {
     this.setState({
       displayModalCreateGame: false
@@ -82,7 +68,6 @@ class LocationsCollection  extends Component {
     console.log("what is new game",newGame);
     console.log("what is game_date", newGame.game_date);
     console.log("MY PROPS NOW", this.props);
-    //2019-01-19 10:23:54 -0800
 
     const getFormattedDate = (date) =>
     {
@@ -103,7 +88,7 @@ class LocationsCollection  extends Component {
     console.log("will create with", newGame);
 
     firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-      axios.post('http://172.24.25.138:8080/kickit/games', newGame, {headers: {
+      axios.post('http://192.168.1.34:8080/kickit/games', newGame, {headers: {
             'X-login-token': idToken
         }}).then( (response) => {
         hideModal();
@@ -116,15 +101,14 @@ class LocationsCollection  extends Component {
         });
       });
     });
-
   };
 
 
   componentDidMount = async () => {
     try {
-      ///school 172.24.25.138:8080
+      ///school 192.168.1.34:8080
       //home 192.168.0.12:8080
-      let response = await fetch('http://172.24.25.138:8080/kickit/locations',{
+      let response = await fetch('http://192.168.1.34:8080/kickit/locations',{
         headers:{
           Accept:'application/json',
           'Content-Type':'application/json',
@@ -183,7 +167,7 @@ class LocationsCollection  extends Component {
       <View >
         <Modal
             transparent={true}
-            animationType="slide"
+            animationType="fade"
             visible={this.state.displayModal}
         >
         <View style={styles.modalStyle}>

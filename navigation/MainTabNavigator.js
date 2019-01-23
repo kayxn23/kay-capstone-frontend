@@ -48,7 +48,7 @@ const AccountStack = createStackNavigator({
 });
 
 AccountStack.navigationOptions = {
-  tabBarLabel: 'Account',
+  tabBarLabel: 'My Account',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}

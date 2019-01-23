@@ -6,7 +6,7 @@ import GamesCollection from '../components/GamesCollection';
 
 export default class GamesScreen extends React.Component {
   static navigationOptions = {
-    title: null,
+    title: "Games",
   };
 
   constructor(props) {

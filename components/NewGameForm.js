@@ -5,8 +5,10 @@ import { Text,
   TouchableHighlight,
   View,
   StyleSheet,
-  DatePickerIOS
+  DatePickerIOS,
+  ScrollView
   } from 'react-native';
+import {Header} from 'react-native-elements'
 
 //import DatePickerIOS from 'react-native-universal-datepicker-ios';
 //               dateFormat={"yyyy-MM-dd HH:mm:ss Z"}
@@ -59,6 +61,7 @@ import { Text,
     render() {
       console.log("MY FORM HAS", this.props);
     return (
+      <ScrollView>
       <View onSubmit={this.onSubmit}  >
         <View >
           <TextInput
@@ -85,6 +88,7 @@ import { Text,
 
         </View>
       </View>
+      </ScrollView>
     );
   }
 

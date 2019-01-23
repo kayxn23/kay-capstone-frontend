@@ -13,7 +13,7 @@ import { MonoText } from '../components/StyledText';
 
 export default class LocationsScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    title: "Locations",
   };
 
   constructor(props) {
